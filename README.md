@@ -1,0 +1,1 @@
+Me project Blog-Platforma
