@@ -1,0 +1,19 @@
+$header-bg: white;
+$header-hover-color: #52c41a;
+$header-logout-color: rgba(0, 0, 0, 0.75);
+
+@mixin headerTextStyle{
+  font-family: Inter, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28px;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+@mixin headerTextLogined{
+  font-family: Inter, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28px;
+  color: rgba(0, 0, 0, 0.75);
+}

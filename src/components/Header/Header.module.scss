@@ -1,0 +1,17 @@
+@import '../AppStyleVar.scss';
+// $header-bg: white;
+
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1440px;
+  height: 80px;
+  background-color: $header-bg;
+  padding-left: 22px;
+  padding-right: 22px;
+}
+
+.title{
+  @include headerTextStyle;
+}
