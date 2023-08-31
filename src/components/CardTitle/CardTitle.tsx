@@ -6,7 +6,7 @@ import { HeartFilled, HeartOutlined, HeartTwoTone } from "@ant-design/icons";
 import { Space } from "antd";
 
 export default function CardTitle(props: any) {
-  const title = 'Some Article Title';
+  const title = props.title;
   const [liked, setLiked] = useState(false);
   const likes = 12;
 

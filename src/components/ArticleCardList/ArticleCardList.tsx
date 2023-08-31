@@ -7,9 +7,14 @@ import { Space } from "antd";
 import ArticleDescrip from "../ArticleDescrip";
 import AuthorInfo from "../AuthorInfo";
 import ArticleFullText from "../ArticleFullText";
+import { article } from "../../types/types";
 
 export default function ArticleCardList(props: any) {
-  const full = true;
+  const full = false;
+  const title = props.title;
+  const tags = props.tags;
+  const descroption = props.description;
+  const author = props.author;
 
   return (
     <div className={full ? style.ArticleCardFull : style.ArticleCardList}>
@@ -18,12 +23,12 @@ export default function ArticleCardList(props: any) {
 
         <Space size={4} align="start" direction="vertical">
 
-          <CardTitle />
-          <Tags />
-          <ArticleDescrip />
+          <CardTitle title={title} />
+          <Tags tags={tags} />
+          <ArticleDescrip description={descroption}/>
 
         </Space>
-        <AuthorInfo />
+        <AuthorInfo author={author} />
       </div>
       {full? <ArticleFullText />: null}
 

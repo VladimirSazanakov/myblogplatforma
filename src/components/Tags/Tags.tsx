@@ -4,7 +4,7 @@ import style from './Tags.module.scss';
 import { Space } from "antd";
 
 export default function Tags(props: any) {
-  const tagsValue = ['first', 'second', 'serd'];
+  const tagsValue = props.tags;
 
   let key = 0;
 

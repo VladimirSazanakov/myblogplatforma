@@ -1,3 +1,27 @@
+export type tag = string;
+
+export type tags = tag[];
+
+export interface author{
+  username: string;
+  bio: string;
+  image: string;
+  following: boolean;
+}
+
+export interface article{
+  slug: string;
+  title: string;
+  description: string;
+  body: string;
+  tags: tags;
+  createdAt: string;
+  updatedAt: string;
+  favorited: boolean;
+  favoritesCount: number;
+  author: author;
+}
+
 export enum filterValue {
   filter_togle_all = 'FILTER_TOGLE_ALL',
   filter_togle_no_transfer = 'FILTER_TOGLE_NO_TRANSFER',

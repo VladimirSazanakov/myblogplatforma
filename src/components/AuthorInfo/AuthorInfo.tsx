@@ -5,13 +5,16 @@ import { Avatar, Space } from 'antd';
 
 import avatarImg from '../../img/userIcon.png';
 import { format } from 'date-fns';
+import { author } from '../../types/types';
 
 export default function AuthorInfo(props: any) {
 
-  const AuthorName = 'John Dear';
+  const AuthorInfo:author = props.author;
+
+  const AuthorName = AuthorInfo.username
   const date = '03.05.2020';
 
-  const avatar = <Avatar src={avatarImg} size={46} />;
+  const avatar = <Avatar src={AuthorInfo.image} size={46} />;
   const authorNameComp = <span className={style.user_name}>{AuthorName}</span>;
   const dateComp = <span className={style.date}> {format(new Date(date), 'MMMM dd, yyyy')}</span>
 
