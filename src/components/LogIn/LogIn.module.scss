@@ -1,6 +1,6 @@
 @import '../AppStyleVar.scss';
 
-.LogIn{
+.LogIn {
   @include headerTextStyle;
 
   display: flex;
@@ -8,7 +8,7 @@
   justify-content: flex-end;
 }
 
-.LogIn_items{
+.LogIn_items {
   @include headerTextStyle;
   box-sizing: border-box;
   text-decoration: none;
@@ -24,7 +24,7 @@
   word-wrap: none;
 }
 
-a.LogIn_items:hover{
+a.LogIn_items:hover {
   @include headerTextStyle;
   color: $header-hover-color;
   box-shadow: inset 0 0 0 1px $header-hover-color;
@@ -32,7 +32,7 @@ a.LogIn_items:hover{
   transition: all 1s;
 }
 
-.LogIn_logOut{
+.LogIn_logOut {
   @include headerTextLogined;
   box-sizing: border-box;
   text-decoration: none;
@@ -49,7 +49,7 @@ a.LogIn_items:hover{
   border-radius: 5px;
 }
 
-.LogIn_logOut:hover{
+.LogIn_logOut:hover {
   @include headerTextLogined;
   color: $header-hover-color;
   box-shadow: inset 0 0 0 1px $header-hover-color;
@@ -57,7 +57,7 @@ a.LogIn_items:hover{
   transition: all 1s;
 }
 
-.user_name{
+.user_name {
   @include headerTextStyle;
   box-sizing: border-box;
   text-decoration: none;
@@ -73,23 +73,22 @@ a.LogIn_items:hover{
   word-wrap: none;
 }
 
-.createAticle{
+.createAticle {
   font-family: Inter, sans-serif;
 
   font-size: 14px;
-    line-height: 22px;
-    box-sizing: border-box;
-    text-decoration: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: auto;
-    width: auto;
-    padding: 5px 10px;
-    margin-left: 27px;
-    // transition: all 1s;
-    box-shadow: inset 0 0 0 1px $header-hover-color;
-    color: $header-hover-color;
-    border-radius: 5px;
-
+  line-height: 22px;
+  box-sizing: border-box;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  width: auto;
+  padding: 5px 10px;
+  margin-left: 27px;
+  // transition: all 1s;
+  box-shadow: inset 0 0 0 1px $header-hover-color;
+  color: $header-hover-color;
+  border-radius: 5px;
 }

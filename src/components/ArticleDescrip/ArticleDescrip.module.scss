@@ -1,0 +1,8 @@
+@import '../AppStyleVar.scss';
+
+.ArticleCardText{
+   @include TextStyle12;
+   display: flex;
+   word-wrap: break-word;
+   width: 700px;
+}

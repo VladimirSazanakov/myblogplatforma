@@ -1,0 +1,23 @@
+@import '../AppStyleVar.scss';
+
+.AuthorInfo {
+  display: flex;
+  align-items: start;
+}
+
+.user_name {
+  @include headerTextStyle;
+  box-sizing: border-box;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  word-wrap: none;
+  white-space: nowrap
+}
+
+.date{
+  @include TextStyle12;
+  color: $text-color-secondary;
+  white-space: nowrap;
+}

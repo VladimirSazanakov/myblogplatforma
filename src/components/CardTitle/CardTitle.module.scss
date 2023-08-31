@@ -1,0 +1,16 @@
+@import '../AppStyleVar.scss';
+.CardTitle{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: auto;
+  height: min-content;
+}
+
+.title{
+  @include CardArticleTitle;
+}
+
+.likes{
+  @include TextStyle12;
+}

@@ -1,0 +1,16 @@
+@import '../AppStyleVar.scss';
+.Tags{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: auto;
+  height: min-content;
+}
+
+.tag{
+   @include TextStyle12;
+   color: $text-color-secondary;
+   border-radius: 2px;
+   border: 1px solid $text-color-secondary;
+   padding: 2px 5px 3px 5px;
+}

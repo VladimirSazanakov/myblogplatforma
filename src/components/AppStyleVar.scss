@@ -1,19 +1,40 @@
 $header-bg: white;
 $header-hover-color: #52c41a;
+$background-color-base: #FFF;
+$info-color: #1890FF;
+$text-color-secondary: rgba(0, 0, 0, 0.5);
 $header-logout-color: rgba(0, 0, 0, 0.75);
+$text-color: rgba(0, 0, 0, 0.75);
+$headeng-color: rgba(0, 0, 0, 0.85);
 
-@mixin headerTextStyle{
+@mixin headerTextStyle {
   font-family: Inter, sans-serif;
   font-size: 18px;
   font-weight: 400;
   line-height: 28px;
-  color: rgba(0, 0, 0, 0.85);
+  color: $headeng-color;
 }
 
-@mixin headerTextLogined{
+@mixin headerTextLogined {
   font-family: Inter, sans-serif;
   font-size: 18px;
   font-weight: 400;
   line-height: 28px;
-  color: rgba(0, 0, 0, 0.75);
+  color: $text-color;
+}
+
+@mixin CardArticleTitle {
+  font-family: Inter, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 28px;
+  color: $info-color;
+}
+
+@mixin TextStyle12{
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 22px;
+  color: $text-color;
 }
