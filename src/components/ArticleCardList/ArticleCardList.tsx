@@ -11,10 +11,14 @@ import { article } from "../../types/types";
 
 export default function ArticleCardList(props: any) {
   const full = false;
-  const title = props.title;
-  const tags = props.tags;
-  const descroption = props.description;
-  const author = props.author;
+  const article = props.article;
+
+  console.log(article);
+
+  const title = article.title;
+  const tags = article.tagList;
+  const description = article.description;
+  const author = article.author;
 
   return (
     <div className={full ? style.ArticleCardFull : style.ArticleCardList}>
@@ -25,12 +29,12 @@ export default function ArticleCardList(props: any) {
 
           <CardTitle title={title} />
           <Tags tags={tags} />
-          <ArticleDescrip description={descroption}/>
+          <ArticleDescrip description={description} />
 
         </Space>
         <AuthorInfo author={author} />
       </div>
-      {full? <ArticleFullText />: null}
+      {full ? <ArticleFullText /> : null}
 
     </div>
   )

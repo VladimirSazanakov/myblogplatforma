@@ -9,10 +9,10 @@ import { author } from '../../types/types';
 
 export default function AuthorInfo(props: any) {
 
-  const AuthorInfo:author = props.author;
+  const AuthorInfo: author = props.author;
 
   const AuthorName = AuthorInfo.username
-  const date = '03.05.2020';
+  const date = '03/05/2020';
 
   const avatar = <Avatar src={AuthorInfo.image} size={46} />;
   const authorNameComp = <span className={style.user_name}>{AuthorName}</span>;
@@ -37,8 +37,8 @@ export default function AuthorInfo(props: any) {
     <div className={style.AuthorInfo}>
       <Space size={12} align='start'>
         <Space size={0} direction='vertical'>
-        {authorNameComp}
-        {dateComp}
+          {authorNameComp}
+          {dateComp}
         </Space>
         {avatar}
       </Space>
