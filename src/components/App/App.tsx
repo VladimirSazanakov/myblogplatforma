@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
+
 // import { Alert, Pagination } from 'antd';
 
 // import { } from '../asyncActions/asyncActions';
@@ -16,7 +18,7 @@ import { useGetArticlesQuery } from '../Api/RtkQuery';
 
 function App() {
 
-  const { data = [], isError, isLoading } = useGetArticlesQuery();
+  const { data = [], isError, isLoading } = useGetArticlesQuery(undefined);
   const state = useSelector(state => state);
   // const [articles, setArticles] = useState({});
   // const apiBlog = new ApiBlog;
@@ -37,7 +39,12 @@ function App() {
       {/* <ArticleCardList /> */}
       {/* <ArticleListPage /> */}
 
-      <main className={classes['app-main']}>Hello blog Platforma</main>
+      <main className={classes['app-main']}>
+        <Routes >
+          <Route path='/' element={<ArticleListPage />} />
+          <Route path='/articles' element={<ArticleListPage />} />
+        </Routes>
+      </main>
     </div>
   );
 }
