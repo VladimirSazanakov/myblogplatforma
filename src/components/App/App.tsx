@@ -12,8 +12,12 @@ import Header from '../Header/Header';
 import ArticleCardList from '../ArticleCardList';
 import ApiBlog from '../../service/ApiBlog';
 import ArticleListPage from '../Pages/ArticleList';
+import { useGetArticlesQuery } from '../Api/RtkQuery';
 
 function App() {
+
+  const { data = [], isError, isLoading } = useGetArticlesQuery();
+  const state = useSelector(state => state);
   // const [articles, setArticles] = useState({});
   // const apiBlog = new ApiBlog;
 
@@ -23,16 +27,20 @@ function App() {
   //     console.log(el);
   //   })
   // },[])
-  
+  console.log(state);
+  console.log(data);
   return (
     <div className={classes.App}>
       <Header />
+      {isLoading ? 'Loading...' : null}
+      {isError ? 'Error..' : null}
       {/* <ArticleCardList /> */}
-      <ArticleListPage />
+      {/* <ArticleListPage /> */}
 
       <main className={classes['app-main']}>Hello blog Platforma</main>
     </div>
   );
 }
+import { useSelector } from 'react-redux';
 
 export default App;

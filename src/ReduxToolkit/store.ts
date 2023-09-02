@@ -1,4 +1,13 @@
-// import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+
+import { articleApi } from '../components/Api/RtkQuery';
+
+export const store = configureStore({
+  reducer: {
+    [articleApi.reducerPath]: articleApi.reducer,
+  },
+  middleware: (getDefaultMiddlware) => getDefaultMiddlware().concat(articleApi.middleware)
+})
 
 // const rootReducer = combineReducers({
 
