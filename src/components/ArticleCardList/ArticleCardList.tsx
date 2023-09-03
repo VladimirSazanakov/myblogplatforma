@@ -10,15 +10,17 @@ import ArticleFullText from "../ArticleFullText";
 import { article } from "../../types/types";
 
 export default function ArticleCardList(props: any) {
-  const full = false;
+
+  const full = props.full;
   const article = props.article;
 
-  console.log(article);
+  // console.log(article);
 
   const title = article.title;
   const tags = article.tagList;
   const description = article.description;
   const author = article.author;
+  const slug = article.slug;
 
   return (
     <div className={full ? style.ArticleCardFull : style.ArticleCardList}>
@@ -27,7 +29,7 @@ export default function ArticleCardList(props: any) {
 
         <Space size={4} align="start" direction="vertical">
 
-          <CardTitle title={title} />
+          <CardTitle title={title} slug={slug} />
           <Tags tags={tags} />
           <ArticleDescrip description={description} />
 

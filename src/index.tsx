@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 // import { setupStore } from './ReduxToolkit/store';
 import './index.css';
 import App from './components/App';
-import { store } from './ReduxToolkit/store';
+import { setupStore } from './ReduxToolkit/store';
 
 // const store = setupStore();
 
@@ -14,6 +14,8 @@ import { store } from './ReduxToolkit/store';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+const store = setupStore();
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>

@@ -15,11 +15,14 @@ import ArticleCardList from '../ArticleCardList';
 import ApiBlog from '../../service/ApiBlog';
 import ArticleListPage from '../Pages/ArticleList';
 import { useGetArticlesQuery } from '../Api/RtkQuery';
+import { useSelector } from 'react-redux';
+import ArticleFullPage from '../Pages/ArticleFull';
 
 function App() {
 
-  const { data = [], isError, isLoading } = useGetArticlesQuery(undefined);
-  const state = useSelector(state => state);
+  // const { data = [], isError, isLoading } = useGetArticlesQuery(undefined);
+  // const state = useSelector(state => state);
+
   // const [articles, setArticles] = useState({});
   // const apiBlog = new ApiBlog;
 
@@ -29,13 +32,14 @@ function App() {
   //     console.log(el);
   //   })
   // },[])
-  console.log(state);
-  console.log(data);
+  // console.log(state);
+  // console.log(data);
+
   return (
     <div className={classes.App}>
       <Header />
-      {isLoading ? 'Loading...' : null}
-      {isError ? 'Error..' : null}
+      {/* {isLoading ? 'Loading...' : null} */}
+      {/* {isError ? 'Error..' : null} */}
       {/* <ArticleCardList /> */}
       {/* <ArticleListPage /> */}
 
@@ -43,11 +47,11 @@ function App() {
         <Routes >
           <Route path='/' element={<ArticleListPage />} />
           <Route path='/articles' element={<ArticleListPage />} />
+          <Route path='/article/:slug' element={<ArticleFullPage />} />
         </Routes>
       </main>
     </div>
   );
 }
-import { useSelector } from 'react-redux';
 
 export default App;

@@ -7,9 +7,20 @@ export const articleApi = createApi({
   }),
   endpoints: (build) => ({
     getArticles: build.query({
-      query: () => 'articles',
+      query: ({ limit = 5, offset = 0 }) => ({
+        url: 'articles',
+        params: {
+          limit: limit,
+          offset: offset,
+        }
+      })
+    }),
+    getArticle: build.query({
+      query: (slug) => ({
+        url: `articles/${slug}`,
+      })
     })
   })
 })
 
-export const { useGetArticlesQuery } = articleApi;
+export const { useGetArticlesQuery, useGetArticleQuery } = articleApi;
