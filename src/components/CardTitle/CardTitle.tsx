@@ -10,7 +10,7 @@ export default function CardTitle(props: any) {
   const title = props.title;
   const slug = props.slug;
   const [liked, setLiked] = useState(false);
-  const likes = 12;
+  const likes = props.likes;
 
   const handleHeart = () => {
     setLiked((liked) => !liked)

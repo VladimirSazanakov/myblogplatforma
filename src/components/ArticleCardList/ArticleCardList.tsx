@@ -21,6 +21,9 @@ export default function ArticleCardList(props: any) {
   const description = article.description;
   const author = article.author;
   const slug = article.slug;
+  const text = article.body;
+  const createdDate = article.createdAt;
+  const likesCount = article.favoritesCount;
 
   return (
     <div className={full ? style.ArticleCardFull : style.ArticleCardList}>
@@ -29,14 +32,14 @@ export default function ArticleCardList(props: any) {
 
         <Space size={4} align="start" direction="vertical">
 
-          <CardTitle title={title} slug={slug} />
+          <CardTitle title={title} slug={slug} likes={likesCount} />
           <Tags tags={tags} />
           <ArticleDescrip description={description} />
 
         </Space>
-        <AuthorInfo author={author} />
+        <AuthorInfo author={author} date={createdDate} />
       </div>
-      {full ? <ArticleFullText /> : null}
+      {full ? <ArticleFullText text={text} /> : null}
 
     </div>
   )
