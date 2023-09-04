@@ -4,6 +4,7 @@ import style from './LogIn.module.scss';
 import { Avatar } from 'antd';
 
 import avatarImg from '../../img/userIcon.png';
+import { Link } from 'react-router-dom';
 
 export default function (props: any) {
   const [logined, setLogined] = useState(false);
@@ -11,14 +12,14 @@ export default function (props: any) {
   const user = 'John Dear';
 
   const signIn = (
-    <a href="#" onClick={() => handleSignIn()} className={style.LogIn_items}>
+    <Link to='/sign-in' onClick={() => handleSignIn()} className={style.LogIn_items}>
       Sign In
-    </a>
+    </Link>
   );
   const singUp = (
-    <a href="#" onClick={() => handleSignUp()} className={style.LogIn_items}>
+    <Link to="/sign-up" onClick={() => handleSignUp()} className={style.LogIn_items}>
       Sign Up
-    </a>
+    </Link>
   );
   const logOut = (
     <a href="#" onClick={() => handleLogOut()} className={style.LogIn_logOut}>

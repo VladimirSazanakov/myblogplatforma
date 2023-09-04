@@ -2,10 +2,18 @@ $header-bg: white;
 $header-hover-color: #52c41a;
 $background-color-base: #FFF;
 $info-color: #1890FF;
+$hover-color: #52a7f7;
+$focus-color: #055daf;
 $text-color-secondary: rgba(0, 0, 0, 0.5);
 $header-logout-color: rgba(0, 0, 0, 0.75);
 $text-color: rgba(0, 0, 0, 0.75);
 $headeng-color: rgba(0, 0, 0, 0.85);
+
+$grey-grey-1: #FFF;
+$grey-grey-5: #D9D9D9;
+$grey-grey-6: #BFBFBF;
+$grey-grey-7: #8C8C8C;
+$grey-grey-9: #262626;
 
 @mixin headerTextStyle {
   font-family: Inter, sans-serif;
@@ -37,4 +45,39 @@ $headeng-color: rgba(0, 0, 0, 0.85);
   font-weight: 400;
   line-height: 22px;
   color: $text-color;
+}
+
+@mixin FormTitle20{
+font-family: Roboto, sans-serif;
+font-size: 20px;
+font-style: normal;
+font-weight: 500;
+line-height: 28px; 
+}
+
+@mixin FormInfo12{
+/* Regular / 12px | 20 px */
+font-family: Roboto, sans-serif;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 20px; /* 166.667% */
+}
+
+@mixin FormLabel14{
+/* Regular / 14px | 22px */
+font-family: Roboto, sans-serif;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 22px; /* 157.143% */
+}
+
+@mixin FormInputText16{
+/* Regular / 16 px | 24 px */
+font-family: Roboto, sans-serif;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 24px; /* 150% */
 }

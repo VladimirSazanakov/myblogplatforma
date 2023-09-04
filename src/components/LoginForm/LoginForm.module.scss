@@ -1,0 +1,73 @@
+@import '../AppStyleVar.scss';
+
+.Form{
+  display: flex;
+  
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 21px;
+  height: 278px;
+  width: 320px;
+  padding: 48px 32px;
+  border-radius: 6px;
+  border: 1px solid $grey-grey-5;
+  background: $grey-grey-1;
+  box-shadow: 0px 0.6088px 2.93329px 0px rgba(0, 0, 0, 0.02), 0px 1.46302px 7.04911px 0px rgba(0, 0, 0, 0.03), 0px 2.75474px 13.27285px 0px rgba(0, 0, 0, 0.04), 0px 4.91399px 23.67649px 0px rgba(0, 0, 0, 0.04), 0px 9.19107px 44.28427px 0px rgba(0, 0, 0, 0.05), 0px 22px 106px 0px rgba(0, 0, 0, 0.07); 
+}
+
+.formTitle{
+  @include FormTitle20;
+  // display: flex;
+  // justify-content: center;
+  color: $grey-grey-9;
+  text-align: center;
+}
+.formItem{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+}
+.formLabel{
+  @include FormLabel14;
+  color: $grey-grey-9;
+
+}
+.formInput{
+  @include FormInputText16;
+  color: $grey-grey-9;
+  height: 40px;
+  background: $grey-grey-1;
+  border-radius: 4px;
+  border: 1px solid $grey-grey-5;
+  padding-left: 12px;
+  margin-bottom: 12px;
+}
+.formSubmitBtn{
+  @include FormInputText16;
+  color: $grey-grey-1;
+  border-radius: 4px;
+  height: 40px;
+  width: 100%;
+  background: $info-color;
+  border: 0;
+}
+.formSubmitBtn:hover{
+background: $hover-color;
+}
+.formSubmitBtn:focus{
+  background: $focus-color;
+  box-shadow: 0 0 5px 2px $hover-color;
+}
+
+.formInfo{
+  display: flex;
+  justify-content: center;
+  @include FormInfo12;
+  color: $grey-grey-7;
+  margin-top: 8px;
+}
+.link{
+  color: $info-color;
+}
