@@ -6,29 +6,27 @@ import React, { useEffect, useState } from 'react';
 // import ErrorIndicator from '../ErrorIndicator';
 // import LoadIndicator from '../LoadIndicator';
 
-import { article } from '../../../types/types';
-
-import classes from './ArticleListPage.module.scss';
-import ArticleCardList from '../../ArticleCardList';
-import ApiBlog from '../../../service/ApiBlog';
-import { useGetArticlesQuery } from '../../Api/RtkQuery';
 import { Pagination, Space } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import useSelection from 'antd/es/table/hooks/useSelection';
+
+import ApiBlog from '../../../service/ApiBlog';
+import { useGetArticlesQuery } from '../../Api/RtkQuery';
+import ArticleCardList from '../../ArticleCardList';
+import { article } from '../../../types/types';
 import { articleList } from '../../../ReduxToolkit/reducers/articleList';
 import { useAppSelector } from '../../hooks/reducer';
 
-
+import classes from './ArticleListPage.module.scss';
 
 export default function ArticleListPage() {
-
   // const [articles, setArticles] = useState([]);
   // const [currentPage, setCurrentPage] = useState(1);
   // const [totalPages, setTotalPages] = useState(0);
   // const [offset, setOffset] = useState(0);
 
   const limit = 5;
-  const apiBlog = new ApiBlog;
+  const apiBlog = new ApiBlog();
 
   const dispatch = useDispatch();
 
@@ -46,16 +44,19 @@ export default function ArticleListPage() {
 
   // let list: any = [];
 
-  const { data, isError, isLoading } = useGetArticlesQuery({ limit: limit, offset: offset });
+  const { data, isError, isLoading } = useGetArticlesQuery({
+    limit: limit,
+    offset: offset,
+  });
 
   useEffect(() => {
     if (data) {
       const pages = Math.floor(data.articlesCount / limit) + 1;
       dispatch(setTotalPages(pages));
-    };
+    }
 
     console.log(data);
-  }, [data])
+  }, [data]);
 
   // useEffect(() => {
   //   const response = apiBlog.getArticles();
@@ -72,11 +73,13 @@ export default function ArticleListPage() {
 
   // })
 
-  const list = data && data.articles.map((el: any) => {
-    console.log(el);
-    keyValue++;
-    if (el) return <ArticleCardList article={el} />
-  })
+  const list =
+    data &&
+    data.articles.map((el: any) => {
+      console.log(el);
+      keyValue++;
+      if (el) return <ArticleCardList article={el} />;
+    });
 
   function onChangePagination(page: number) {
     const offset = (page - 1) * limit;
@@ -96,12 +99,10 @@ export default function ArticleListPage() {
 
   return (
     <div className={classes.ArticleListPage}>
-      <Space direction='vertical' size={26} align='center'>
-
+      <Space direction="vertical" size={26} align="center">
         {list}
       </Space>
       <div className={classes.footer}>
-
         <Pagination
           current={currentPage}
           onChange={onChangePagination}
@@ -113,4 +114,3 @@ export default function ArticleListPage() {
     </div>
   );
 }
-

@@ -1,7 +1,6 @@
 @import '../AppStyleVar.scss';
 
-
-.ArticleCardList{
+.ArticleCardList {
   display: flex;
   box-sizing: border-box;
   justify-content: flex-start;
@@ -14,7 +13,7 @@
   padding: 15px 14px 15px 19px;
 }
 
-.ArticleHeader{
+.ArticleHeader {
   display: flex;
   box-sizing: border-box;
   justify-content: space-between;
@@ -22,7 +21,7 @@
   padding-bottom: 24px;
 }
 
-.ArticleCardFull{
+.ArticleCardFull {
   display: flex;
   box-sizing: border-box;
   justify-content: flex-start;

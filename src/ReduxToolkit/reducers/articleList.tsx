@@ -1,11 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   currentPage: 1,
   totalPages: 0,
   offset: 0,
-
-}
+};
 
 export const articleList = createSlice({
   name: 'articleList',
@@ -19,9 +18,9 @@ export const articleList = createSlice({
     },
     setOffset(state, action) {
       state.offset = action.payload;
-    }
-  }
-})
-export const { setCurrentPage, setTotalPages } = articleList.actions
+    },
+  },
+});
+export const { setCurrentPage, setTotalPages } = articleList.actions;
 
 export default articleList.reducer;

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-
-import style from './LogIn.module.scss';
 import { Avatar } from 'antd';
+import { Link } from 'react-router-dom';
 
 import avatarImg from '../../img/userIcon.png';
-import { Link } from 'react-router-dom';
+
+import style from './LogIn.module.scss';
 
 export default function (props: any) {
   const [logined, setLogined] = useState(false);
@@ -12,12 +12,20 @@ export default function (props: any) {
   const user = 'John Dear';
 
   const signIn = (
-    <Link to='/sign-in' onClick={() => handleSignIn()} className={style.LogIn_items}>
+    <Link
+      to="/sign-in"
+      onClick={() => handleSignIn()}
+      className={style.LogIn_items}
+    >
       Sign In
     </Link>
   );
   const singUp = (
-    <Link to="/sign-up" onClick={() => handleSignUp()} className={style.LogIn_items}>
+    <Link
+      to="/sign-up"
+      onClick={() => handleSignUp()}
+      className={style.LogIn_items}
+    >
       Sign Up
     </Link>
   );

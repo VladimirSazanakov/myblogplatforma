@@ -12,15 +12,15 @@ export const articleApi = createApi({
         params: {
           limit: limit,
           offset: offset,
-        }
-      })
+        },
+      }),
     }),
     getArticle: build.query({
       query: (slug) => ({
         url: `articles/${slug}`,
-      })
-    })
-  })
-})
+      }),
+    }),
+  }),
+});
 
 export const { useGetArticlesQuery, useGetArticleQuery } = articleApi;

@@ -1,16 +1,16 @@
-import React from "react";
+import React from 'react';
+import { Space } from 'antd';
+
+import CardTitle from '../CardTitle';
+import Tags from '../Tags';
+import ArticleDescrip from '../ArticleDescrip';
+import AuthorInfo from '../AuthorInfo';
+import ArticleFullText from '../ArticleFullText';
+import { article } from '../../types/types';
 
 import style from './ArticleCardList.module.scss';
-import CardTitle from "../CardTitle";
-import Tags from "../Tags";
-import { Space } from "antd";
-import ArticleDescrip from "../ArticleDescrip";
-import AuthorInfo from "../AuthorInfo";
-import ArticleFullText from "../ArticleFullText";
-import { article } from "../../types/types";
 
 export default function ArticleCardList(props: any) {
-
   const full = props.full;
   const article = props.article;
 
@@ -27,20 +27,15 @@ export default function ArticleCardList(props: any) {
 
   return (
     <div className={full ? style.ArticleCardFull : style.ArticleCardList}>
-
       <div className={style.ArticleHeader}>
-
         <Space size={4} align="start" direction="vertical">
-
           <CardTitle title={title} slug={slug} likes={likesCount} />
           <Tags tags={tags} />
           <ArticleDescrip description={description} />
-
         </Space>
         <AuthorInfo author={author} date={createdDate} />
       </div>
       {full ? <ArticleFullText text={text} /> : null}
-
     </div>
-  )
+  );
 }

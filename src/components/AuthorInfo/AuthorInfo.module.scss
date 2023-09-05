@@ -13,10 +13,10 @@
   justify-content: center;
   align-items: center;
   word-wrap: none;
-  white-space: nowrap
+  white-space: nowrap;
 }
 
-.date{
+.date {
   @include TextStyle12;
   color: $text-color-secondary;
   white-space: nowrap;

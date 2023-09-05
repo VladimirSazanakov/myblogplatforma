@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import { Space } from 'antd';
 
 import style from './Tags.module.scss';
-import { Space } from "antd";
 
 export default function Tags(props: any) {
   const tagsValue = props.tags;
@@ -11,9 +11,11 @@ export default function Tags(props: any) {
   const tags = tagsValue.map((el: string) => {
     key++;
     return (
-      <span key={key} className={style.tag}>{el}</span>
-    )
-  })
+      <span key={key} className={style.tag}>
+        {el}
+      </span>
+    );
+  });
 
   return (
     <div className={style.Tags}>
@@ -21,5 +23,5 @@ export default function Tags(props: any) {
         {tags}
       </Space>
     </div>
-  )
+  );
 }

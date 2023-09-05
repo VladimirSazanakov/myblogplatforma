@@ -1,3 +1,3 @@
-import ArticleDescrip from "./ArticleDescrip";
+import ArticleDescrip from './ArticleDescrip';
 
-export default ArticleDescrip
+export default ArticleDescrip;

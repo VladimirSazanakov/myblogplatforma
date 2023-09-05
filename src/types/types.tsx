@@ -2,14 +2,14 @@ export type tag = string;
 
 export type tags = tag[];
 
-export interface author{
+export interface author {
   username: string;
   bio: string;
   image: string;
   following: boolean;
 }
 
-export interface article{
+export interface article {
   slug: string;
   title: string;
   description: string;

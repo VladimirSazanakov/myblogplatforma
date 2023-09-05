@@ -5,24 +5,23 @@ import React, { useEffect, useState } from 'react';
 // import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 // import ErrorIndicator from '../ErrorIndicator';
 // import LoadIndicator from '../LoadIndicator';
-import { article } from '../../../types/types';
+import { useParams } from 'react-router-dom';
 
-import classes from './ArticleFullPage.module.scss';
+import { article } from '../../../types/types';
 import ArticleCardList from '../../ArticleCardList';
 import ApiBlog from '../../../service/ApiBlog';
-import { useParams } from 'react-router-dom';
 import { useGetArticleQuery } from '../../Api/RtkQuery';
 
+import classes from './ArticleFullPage.module.scss';
 
 export default function ArticleFullPage(props: any) {
-
   const { slug } = useParams();
   const { data, isError, isLoading } = useGetArticleQuery(slug);
 
   //const [article, setArticle] = useState();
-  const apiBlog = new ApiBlog;
+  const apiBlog = new ApiBlog();
   // const article = data.article;
-  let keyValue = 0;
+  const keyValue = 0;
 
   console.log(data);
 
@@ -59,4 +58,3 @@ export default function ArticleFullPage(props: any) {
     </div>
   );
 }
-

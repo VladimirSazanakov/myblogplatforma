@@ -6,22 +6,20 @@ import React, { useEffect, useState } from 'react';
 // import ErrorIndicator from '../ErrorIndicator';
 // import LoadIndicator from '../LoadIndicator';
 
-import { article } from '../../../types/types';
-
-import classes from './SignUpPage.module.scss';
-import ArticleCardList from '../../ArticleCardList';
-import ApiBlog from '../../../service/ApiBlog';
-import { useGetArticlesQuery } from '../../Api/RtkQuery';
 import { Pagination, Space } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import useSelection from 'antd/es/table/hooks/useSelection';
+
+import ApiBlog from '../../../service/ApiBlog';
+import { useGetArticlesQuery } from '../../Api/RtkQuery';
+import ArticleCardList from '../../ArticleCardList';
+import { article } from '../../../types/types';
 import { articleList } from '../../../ReduxToolkit/reducers/articleList';
 import { useAppSelector } from '../../hooks/reducer';
 
-
+import classes from './SignUpPage.module.scss';
 
 export default function SignUpPage() {
-
   // const [articles, setArticles] = useState([]);
   // const [currentPage, setCurrentPage] = useState(1);
   // const [totalPages, setTotalPages] = useState(0);
@@ -100,4 +98,3 @@ export default function SignUpPage() {
     </div>
   );
 }
-
