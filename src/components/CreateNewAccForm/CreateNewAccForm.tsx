@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 import { Button, Checkbox, Form, Input, Radio } from 'antd';
 import { Link } from 'react-router-dom';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
 import classes from './CreateNewAccForm.module.scss';
+import { useRegisterNewUserMutation } from '../Api/RtkQuery';
 
 type LayoutType = Parameters<typeof Form>[0]['layout'];
+
+type Inputs = {
+  username: string
+  email: string
+  password: string
+}
 
 export default function CreateNewAccForm(props: any) {
   const formTitle = 'Create new account';
@@ -13,6 +21,8 @@ export default function CreateNewAccForm(props: any) {
 
   const [form] = Form.useForm();
   const [formLayout, setFormLayout] = useState<LayoutType>('vertical');
+
+  const { } = useRegisterNewUserMutation();
 
   const onFormLayoutChange = ({ layout }: { layout: LayoutType }) => {
     setFormLayout(layout);
@@ -28,31 +38,37 @@ export default function CreateNewAccForm(props: any) {
       ? { wrapperCol: { span: 14, offset: 4 } }
       : null;
 
-  function handleSubmit() { }
+  const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>();
+
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => { console.log(data) }
+
   function toogleAgree() {
     setAgree(!agree);
     console.log(agree);
   }
 
   return (
-    <form className={classes.Form}>
+    <form className={classes.Form} onSubmit={handleSubmit(onSubmit)}>
       <div className={classes.formTitle}>{formTitle}</div>
       <div className={classes.formItem}>
         <label className={classes.formLabel}>Username</label>
         <input
-          type="email"
+          type="text"
           required
           className={classes.formInput}
-          name="username"
+          // name="username"
           placeholder="Username"
+          {...register('username')}
         ></input>
         <label className={classes.formLabel}>Email address</label>
         <input
           type="email"
           required
           className={classes.formInput}
-          name="email"
+          // name="email"
           placeholder="Email address"
+          {...register('email')}
         ></input>
 
         <label className={classes.formLabel}>Password</label>
@@ -60,8 +76,9 @@ export default function CreateNewAccForm(props: any) {
           type="password"
           required
           className={classes.formInput}
-          name="password"
+          // name="password"
           placeholder="Password"
+          {...register('password')}
         ></input>
         <label className={classes.formLabel}>Repeat Password</label>
         <input
@@ -84,13 +101,14 @@ export default function CreateNewAccForm(props: any) {
         </div>
       </div>
       <div className={classes.formItem}>
-        <button
+        <input
+          value={'Create'}
           type="submit"
           className={classes.formSubmitBtn}
-          onClick={() => handleSubmit()}
-        >
-          Create
-        </button>
+        // onClick={() => handleSubmit()}
+        />
+        {/* Create
+        </input> */}
         <div className={classes.formInfo}>
           Don't have account?{' '}
           <Link className={classes.link} to="/sign-in">
