@@ -18,6 +18,7 @@ import { articleList } from '../../../ReduxToolkit/reducers/articleList';
 import { useAppSelector } from '../../hooks/reducer';
 
 import classes from './SignUpPage.module.scss';
+import CreateNewAccForm from '../../CreateNewAccForm';
 
 export default function SignUpPage() {
   // const [articles, setArticles] = useState([]);
@@ -94,7 +95,7 @@ export default function SignUpPage() {
 
   return (
     <div className={classes.SignUpPage}>
-      <h1>Sign Up page</h1>
+      <CreateNewAccForm />
     </div>
   );
 }
