@@ -21,7 +21,7 @@ export default function (props: any) {
   }, [token]),
 
     useEffect(() => {
-      console.log(data);
+      console.log('request data from server', data);
     }, [data])
 
 
