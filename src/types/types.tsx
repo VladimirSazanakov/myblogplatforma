@@ -40,6 +40,17 @@ export interface Action {
   payload?: any;
 }
 
+export enum userActions {
+  setLogin = 'SET_LOGIN',
+  setError = 'SET_ERROR',
+  setLoading = 'SET_LOADING',
+  setUserName = 'SET_USER_NAME',
+  setEmail = 'SET_EMAIL',
+  setToken = 'SET_TOKEN',
+  setBio = 'SET_BIO',
+  setImage = 'SET_IMAGE',
+}
+
 //------------RawTicketTypes-------------------
 
 export interface rawTicketsState {

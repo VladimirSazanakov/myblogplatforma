@@ -16,6 +16,20 @@ type Inputs = {
   agree: any
 }
 
+type userDataApi = {
+  user: {
+    username: string,
+    email: string,
+    password: string,
+  }
+}
+
+enum formItem {
+  username,
+  email,
+  password,
+}
+
 export default function CreateNewAccForm(props: any) {
   const formTitle = 'Create new account';
 
@@ -24,17 +38,60 @@ export default function CreateNewAccForm(props: any) {
   const [form] = Form.useForm();
   const [formLayout, setFormLayout] = useState<LayoutType>('vertical');
 
-  const { } = useRegisterNewUserMutation();
+  const [fetchCreateUser, { data, isLoading, isError }] = useRegisterNewUserMutation();
 
-  const { register, handleSubmit, formState: { errors }, getValues, control } = useForm<Inputs>();
+  const { register, handleSubmit, formState: { errors }, getValues, control, setError } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log('From Submit', data)
+    const newUser: userDataApi = {
+      user: {
+        username: data.username,
+        email: data.email,
+        password: data.password,
+      }
+    }
+    // console.log('From Submit', newUser);
+    fetchNewUser(newUser);
   }
 
-  function toogleAgree() {
-    setAgree(!agree);
+  const fetchNewUser = async (newUser: userDataApi) => {
+    if (newUser) {
+      try {
+        await fetchCreateUser(newUser).unwrap();
+        console.log(isError);
+        // console.log(data);
+      } catch (error: any) {
+        showErrors(error.data);
+
+
+      }
+    }
   }
+
+  const showErrors = (errData: any) => {
+    const errItems = errData.errors;
+    const errKeys = Object.keys(errItems);
+    console.log(errKeys);
+    errKeys.forEach((el: string, index: number) => {
+      switch (el) {
+        case 'username': {
+          setError('username', { message: el + ' ' + errItems[el] });
+          break;
+        }
+        case 'email': {
+          setError('email', { message: el + ' ' + errItems[el] });
+          break;
+        }
+
+        case 'password': {
+          setError('password', { message: el + ' ' + errItems[el] });
+          break;
+        }
+        default: break;
+      }
+    });
+  }
+
 
   function onclickSubmit() {
     // console.log('value from oncklick FN', getValues());
@@ -44,7 +101,7 @@ export default function CreateNewAccForm(props: any) {
     // if (password != repeatPassword) {
     //   console.log('password is not equele');
     //   setError('password', { type: 'value', message: 'Password must be match' });
-    console.log(errors);
+    // console.log(errors);
     // }
   }
 
