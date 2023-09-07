@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 import { Avatar } from 'antd';
 import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../hooks/reducer';
 
 import avatarImg from '../../img/userIcon.png';
 
 import style from './LogIn.module.scss';
 
 export default function (props: any) {
-  const [logined, setLogined] = useState(false);
+
+  const state = useAppSelector(state => state.user);
+  const dispatch = useAppDispatch();
+  const logined = state.isLogin;
+  const token = state.token;
+
+  // const [logined, setLogined] = useState(false);
   const loginInfo = {};
   const user = 'John Dear';
 
@@ -51,14 +58,14 @@ export default function (props: any) {
     console.log(logined);
   };
 
-  const handleSignUp = () => {};
+  const handleSignUp = () => { };
 
   const handleLogOut = () => {
     setLogined(false);
     console.log(logined);
   };
 
-  const handleCrateAticle = () => {};
+  const handleCrateAticle = () => { };
 
   return (
     <div className={style.LogIn}>

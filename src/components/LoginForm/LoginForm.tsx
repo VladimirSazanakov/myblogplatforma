@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useUserLoginMutation } from '../Api/RtkQuery';
+
+import { useAppDispatch, useAppSelector } from '../hooks/reducer';
+import { SET_TOKEN, SET_LOGIN } from '../../ReduxToolkit/reducers/user';
 
 import classes from './LoginForm.module.scss';
 
@@ -9,14 +13,61 @@ type Inputs = {
   password: string
 }
 
+type userLogin = {
+  user: {
+    email: string
+    password: string
+  }
+}
+
 export default function LoginForm(props: any) {
+
+  const bigState = useAppSelector(state => state.user);
+  const dispatch = useAppDispatch();
 
   const formTitle = 'SignIn';
   const { register, handleSubmit, watch, formState: { errors }, } = useForm<Inputs>();
+  const [fetchLogin, { data, isLoading, isError, status }] = useUserLoginMutation();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data)
+    const userData: userLogin = {
+      user: {
+        email: data.email,
+        password: data.password
+      }
+    }
+    console.log('data from form', data)
+    dispatch(SET_LOGIN(true));
+    dispatch(SET_TOKEN(''));
+    loginUser(userData);
   };
+
+  const loginUser = async (userData: userLogin) => {
+    if (userData) {
+      try {
+        await fetchLogin(userData);
+
+        await console.log(data.user.token);
+
+        await dispatch(SET_TOKEN(data.user.token));
+
+        console.log(status);
+        console.log(isLoading);
+        console.log('isError', isError);
+        console.log('token in state', bigState.token);
+
+      } catch (err: any) {
+        console.log('error is', err.errors);
+      }
+    } else {
+      console.log('no data');
+    }
+
+  }
+
+  useEffect(() => {
+    console.log('token in state use effect', bigState.token);
+  }, [bigState])
 
   return (
     <form className={classes.Form} onSubmit={handleSubmit(onSubmit)}>
@@ -62,6 +113,7 @@ export default function LoginForm(props: any) {
           <span className={classes.errorMessage}>{errors.password?.message}</span>
         </div>
       </div>
+      {isError ? <span className={classes.errorMessage}>Email or password is invalid</span> : null}
 
       <div className={classes.formItem}>
         <button
