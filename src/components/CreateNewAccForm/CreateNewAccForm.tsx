@@ -12,6 +12,7 @@ type Inputs = {
   username: string
   email: string
   password: string
+  repeatPassword: string
 }
 
 export default function CreateNewAccForm(props: any) {
@@ -24,71 +25,129 @@ export default function CreateNewAccForm(props: any) {
 
   const { } = useRegisterNewUserMutation();
 
-  const onFormLayoutChange = ({ layout }: { layout: LayoutType }) => {
-    setFormLayout(layout);
-  };
+  const { register, handleSubmit, watch, formState: { errors }, getValues, setError } = useForm<Inputs>();
 
-  const formItemLayout =
-    formLayout === 'horizontal'
-      ? { labelCol: { span: 4 }, wrapperCol: { span: 14 } }
-      : null;
-
-  const buttonItemLayout =
-    formLayout === 'horizontal'
-      ? { wrapperCol: { span: 14, offset: 4 } }
-      : null;
-
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>();
-
-
-  const onSubmit: SubmitHandler<Inputs> = (data) => { console.log(data) }
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    console.log('From Submit', data)
+  }
 
   function toogleAgree() {
     setAgree(!agree);
-    console.log(agree);
+  }
+
+  function onclickSubmit() {
+    // console.log('value from oncklick FN', getValues());
+    // const { password, repeatPassword } = getValues();
+    // console.log(password);
+    // console.log(repeatPassword);
+    // if (password != repeatPassword) {
+    //   console.log('password is not equele');
+    //   setError('password', { type: 'value', message: 'Password must be match' });
+    //   console.log(errors);
+    // }
+  }
+
+  function repearPasswordValid(value: any) {
+    // console.log('value FN');
+    const { password, repeatPassword } = getValues();
+    if (password != value) {
+      // console.log('password is not equele In');
+      return 'Password must be match';
+    }
   }
 
   return (
     <form className={classes.Form} onSubmit={handleSubmit(onSubmit)}>
       <div className={classes.formTitle}>{formTitle}</div>
-      <div className={classes.formItem}>
-        <label className={classes.formLabel}>Username</label>
-        <input
-          type="text"
-          required
-          className={classes.formInput}
-          // name="username"
-          placeholder="Username"
-          {...register('username')}
-        ></input>
-        <label className={classes.formLabel}>Email address</label>
-        <input
-          type="email"
-          required
-          className={classes.formInput}
-          // name="email"
-          placeholder="Email address"
-          {...register('email')}
-        ></input>
 
-        <label className={classes.formLabel}>Password</label>
-        <input
-          type="password"
-          required
-          className={classes.formInput}
-          // name="password"
-          placeholder="Password"
-          {...register('password')}
-        ></input>
-        <label className={classes.formLabel}>Repeat Password</label>
-        <input
-          type="Password"
-          required
-          className={classes.formInput}
-          name="repeatPassword"
-          placeholder="Password"
-        ></input>
+      <div className={classes.formItem}>
+
+        <div className={classes.itemContainer}>
+          <label className={classes.formLabel}>Username</label>
+          <input
+            type="text"
+            // required
+            className={classes.formInput}
+            // name="username"
+            placeholder="Username"
+            {...register('username', {
+              required: 'Username is required',
+              minLength: {
+                value: 3,
+                message: 'Your Username needs to be at least 3 characters'
+              },
+              maxLength: {
+                value: 20,
+                message: "Your Username must be 20 characters or less"
+              }
+            })}
+            aria-invalid={errors.username ? true : false}
+          ></input>
+          <span className={classes.errorMessage}>{errors.username?.message}</span>
+        </div>
+
+        <div className={classes.itemContainer}>
+          <label className={classes.formLabel}>Email address</label>
+          <input
+            type="email"
+            // required
+            className={classes.formInput}
+            // name="email"
+            placeholder="Email address"
+            {...register('email', {
+              required: 'Email address is required',
+              pattern: {
+                value: /\S+@\S+.\S+/,
+                message: "Please enter correct value"
+              }
+            })}
+            aria-invalid={errors.email ? true : false}
+          ></input>
+          <span className={classes.errorMessage}>{errors.email?.message}</span>
+        </div>
+
+        <div className={classes.itemContainer}>
+          <label className={classes.formLabel}>Password</label>
+          <input
+            type="password"
+            // required
+            className={classes.formInput}
+            // name="password"
+            placeholder="Password"
+            {...register('password', {
+              required: 'Password is required',
+              minLength: {
+                value: 6,
+                message: "Your password needs to be at least 6 characters"
+              },
+              maxLength: {
+                value: 40,
+                message: "Your password must be 40 characters or less"
+              }
+            })}
+            aria-invalid={errors.password ? true : false}
+          ></input>
+          <span className={classes.errorMessage}>{errors.password?.message}</span>
+        </div>
+
+        <div className={classes.itemContainer}>
+          <label className={classes.formLabel}>Repeat Password</label>
+          <input
+            type="Password"
+            // required
+            className={classes.formInput}
+            // name="repeatPassword"
+            placeholder="Password"
+            {...register("repeatPassword", {
+              required: "Please confurm password",
+              validate: repearPasswordValid,
+            })}
+            aria-invalid={errors.repeatPassword ? true : false}
+          ></input>
+          <span className={classes.errorMessage}>{errors.repeatPassword?.message}</span>
+        </div>
       </div>
+
       <div className={classes.formItem}>
         <div className={classes.formCheckContainer}>
 
@@ -104,6 +163,7 @@ export default function CreateNewAccForm(props: any) {
         <input
           value={'Create'}
           type="submit"
+          onClick={() => onclickSubmit()}
           className={classes.formSubmitBtn}
         // onClick={() => handleSubmit()}
         />
@@ -116,7 +176,7 @@ export default function CreateNewAccForm(props: any) {
           </Link>
         </div>
       </div>
-    </form>
+    </form >
     // <Form
     //     {...formItemLayout}
     //   layout='vertical'

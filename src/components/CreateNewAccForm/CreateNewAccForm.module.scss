@@ -35,7 +35,16 @@
   flex-direction: column;
   justify-content: flex-start;
   width: 100%;
+  gap: 12px;
 }
+
+.itemContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+}
+
 
 .formLabel {
   @include FormLabel14;
@@ -50,7 +59,17 @@
   border-radius: 4px;
   border: 1px solid $grey-grey-5;
   padding-left: 12px;
-  margin-bottom: 12px;
+  // margin-bottom: 12px;
+}
+
+.formInput[aria-invalid='true'] {
+  border: 2px solid $formAlarm-color;
+  // box-shadow: 0 0 2px 4px $formAlarm-color;
+}
+
+.errorMessage {
+  @include FormInfo12;
+  color: $formAlarm-color;
 }
 
 .formSubmitBtn {
@@ -67,7 +86,7 @@
   background: $hover-color;
 }
 
-.formSubmitBtn:focus {
+.formSubmitBtn:active {
   background: $focus-color;
   box-shadow: 0 0 5px 2px $hover-color;
 }
