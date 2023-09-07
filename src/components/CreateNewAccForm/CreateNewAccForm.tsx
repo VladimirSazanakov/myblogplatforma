@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { Button, Checkbox, Form, Input, Radio } from 'antd';
+import { Checkbox } from 'antd';
 import { Link } from 'react-router-dom';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
-
-import classes from './CreateNewAccForm.module.scss';
 import { useRegisterNewUserMutation } from '../Api/RtkQuery';
 
-type LayoutType = Parameters<typeof Form>[0]['layout'];
+import classes from './CreateNewAccForm.module.scss';
 
 type Inputs = {
   username: string
@@ -23,23 +21,10 @@ type userDataApi = {
     password: string,
   }
 }
-
-enum formItem {
-  username,
-  email,
-  password,
-}
-
 export default function CreateNewAccForm(props: any) {
   const formTitle = 'Create new account';
-
-  const [agree, setAgree] = useState(false);
-
-  const [form] = Form.useForm();
-  const [formLayout, setFormLayout] = useState<LayoutType>('vertical');
-
+  const [successed, setSuccessed] = useState(false);
   const [fetchCreateUser, { data, isLoading, isError }] = useRegisterNewUserMutation();
-
   const { register, handleSubmit, formState: { errors }, getValues, control, setError } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
@@ -50,7 +35,6 @@ export default function CreateNewAccForm(props: any) {
         password: data.password,
       }
     }
-    // console.log('From Submit', newUser);
     fetchNewUser(newUser);
   }
 
@@ -58,12 +42,9 @@ export default function CreateNewAccForm(props: any) {
     if (newUser) {
       try {
         await fetchCreateUser(newUser).unwrap();
-        console.log(isError);
-        // console.log(data);
+        setSuccessed(true);
       } catch (error: any) {
         showErrors(error.data);
-
-
       }
     }
   }
@@ -92,24 +73,9 @@ export default function CreateNewAccForm(props: any) {
     });
   }
 
-
-  function onclickSubmit() {
-    // console.log('value from oncklick FN', getValues());
-    // const { password, repeatPassword } = getValues();
-    // console.log(password);
-    // console.log(repeatPassword);
-    // if (password != repeatPassword) {
-    //   console.log('password is not equele');
-    //   setError('password', { type: 'value', message: 'Password must be match' });
-    // console.log(errors);
-    // }
-  }
-
   function repearPasswordValid(value: any) {
-    // console.log('value FN');
     const { password, repeatPassword } = getValues();
     if (password != value) {
-      // console.log('password is not equele In');
       return 'Password must be match';
     }
   }
@@ -124,9 +90,7 @@ export default function CreateNewAccForm(props: any) {
           <label className={classes.formLabel}>Username</label>
           <input
             type="text"
-            // required
             className={classes.formInput}
-            // name="username"
             placeholder="Username"
             {...register('username', {
               required: 'Username is required',
@@ -148,9 +112,7 @@ export default function CreateNewAccForm(props: any) {
           <label className={classes.formLabel}>Email address</label>
           <input
             type="email"
-            // required
             className={classes.formInput}
-            // name="email"
             placeholder="Email address"
             {...register('email', {
               required: 'Email address is required',
@@ -168,9 +130,7 @@ export default function CreateNewAccForm(props: any) {
           <label className={classes.formLabel}>Password</label>
           <input
             type="password"
-            // required
             className={classes.formInput}
-            // name="password"
             placeholder="Password"
             {...register('password', {
               required: 'Password is required',
@@ -192,9 +152,7 @@ export default function CreateNewAccForm(props: any) {
           <label className={classes.formLabel}>Repeat Password</label>
           <input
             type="Password"
-            // required
             className={classes.formInput}
-            // name="repeatPassword"
             placeholder="Password"
             {...register("repeatPassword", {
               required: "Please confurm password",
@@ -215,24 +173,19 @@ export default function CreateNewAccForm(props: any) {
             render={({ field }) =>
               <Checkbox {...field}
                 className={classes.formCheckBox}
-              // checked={agree}
-              // onChange={() => toogleAgree()}
               ></Checkbox>
             } />
           <span className={classes.formAgree}>I agree to the processing of my personal information</span>
         </div>
-        <span className={classes.errorMessage}>{errors.agree ? 'You need confermed' : null}</span>
+        <span className={classes.errorMessage}>{errors.agree ? 'You must accept' : null}</span>
       </div>
+      {successed ? <span className={classes.successed}>successful</span> : null}
       <div className={classes.formItem}>
         <input
           value={'Create'}
           type="submit"
-          onClick={() => onclickSubmit()}
           className={classes.formSubmitBtn}
-        // onClick={() => handleSubmit()}
         />
-        {/* Create
-        </input> */}
         <div className={classes.formInfo}>
           Don't have account?{' '}
           <Link className={classes.link} to="/sign-in">
@@ -241,22 +194,5 @@ export default function CreateNewAccForm(props: any) {
         </div>
       </div>
     </form >
-    // <Form
-    //     {...formItemLayout}
-    //   layout='vertical'
-    //   size="large"
-    //   form={form}
-    //   style={{ maxWidth: 600 }}
-    // >
-    //  <Form.Item label="Email sdress">
-    //     <Input placeholder="Email adress" />
-    //   </Form.Item>
-    //   <Form.Item label="Password">
-    //     <Input placeholder="Password" />
-    //   </Form.Item>
-    //   <Form.Item {...buttonItemLayout}>
-    //     <Button type="primary">Login</Button>
-    //   </Form.Item>
-    // </Form>
   );
 }

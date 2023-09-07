@@ -124,3 +124,9 @@
   // height: 16px;
   // width: 16px;
 }
+
+.successed {
+  @include FormLabel14;
+  color: $header-hover-color;
+  text-transform: uppercase;
+}
