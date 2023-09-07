@@ -20,6 +20,11 @@ export const articleApi = createApi({
         url: `articles/${slug}`,
       }),
     }),
+    getUser: build.query({
+      query: (api) = ({
+        url: 'user',
+      }),
+    }),
     registerNewUser: build.mutation({
       query: (body) => ({
         url: 'users',
@@ -27,7 +32,14 @@ export const articleApi = createApi({
         body: body,
       }),
     }),
+    userLogin: build.mutation({
+      query: (body) => ({
+        url: 'users/login',
+        method: 'POST',
+        body: body,
+      }),
+    }),
   }),
 });
 
-export const { useGetArticlesQuery, useGetArticleQuery, useRegisterNewUserMutation } = articleApi;
+export const { useGetArticlesQuery, useGetArticleQuery, useRegisterNewUserMutation, useUserLoginMutation } = articleApi;
