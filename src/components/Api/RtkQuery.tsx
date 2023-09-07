@@ -21,8 +21,12 @@ export const articleApi = createApi({
       }),
     }),
     getUser: build.query({
-      query: (api) = ({
+      query: (token) => ({
         url: 'user',
+        method: 'GET',
+        headers: {
+          Authorization: `Token ${token}`,
+        }
       }),
     }),
     registerNewUser: build.mutation({
@@ -42,4 +46,4 @@ export const articleApi = createApi({
   }),
 });
 
-export const { useGetArticlesQuery, useGetArticleQuery, useRegisterNewUserMutation, useUserLoginMutation } = articleApi;
+export const { useGetArticlesQuery, useGetArticleQuery, useRegisterNewUserMutation, useUserLoginMutation, useGetUserQuery } = articleApi;

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Avatar } from 'antd';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks/reducer';
+import { useGetUserQuery } from '../Api/RtkQuery';
 
 import avatarImg from '../../img/userIcon.png';
 
@@ -13,6 +14,16 @@ export default function (props: any) {
   const dispatch = useAppDispatch();
   const logined = state.isLogin;
   const token = state.token;
+  const { data, isError, isLoading } = useGetUserQuery(token);
+
+  useEffect(() => {
+    console.log(data);
+  }, [token]),
+
+    useEffect(() => {
+      console.log(data);
+    }, [data])
+
 
   // const [logined, setLogined] = useState(false);
   const loginInfo = {};
@@ -54,18 +65,25 @@ export default function (props: any) {
   );
 
   const handleSignIn = () => {
-    setLogined(true);
+    // setLogined(true);
     console.log(logined);
   };
 
   const handleSignUp = () => { };
 
   const handleLogOut = () => {
-    setLogined(false);
+    // setLogined(false);
     console.log(logined);
   };
 
   const handleCrateAticle = () => { };
+
+  const AuthClick = () => {
+    // const { data, isError, isLoading } = useGetUserQuery(token);
+    console.log('repit send token');
+    console.log(data);
+
+  }
 
   return (
     <div className={style.LogIn}>
@@ -80,8 +98,10 @@ export default function (props: any) {
         <>
           {signIn}
           {singUp}
+
         </>
       )}
+      <button onClick={() => AuthClick()} >Retit send token</button>
     </div>
   );
 }
