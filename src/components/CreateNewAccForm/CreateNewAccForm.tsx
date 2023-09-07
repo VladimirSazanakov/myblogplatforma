@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Checkbox, Form, Input, Radio } from 'antd';
 import { Link } from 'react-router-dom';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 
 import classes from './CreateNewAccForm.module.scss';
 import { useRegisterNewUserMutation } from '../Api/RtkQuery';
@@ -13,6 +13,7 @@ type Inputs = {
   email: string
   password: string
   repeatPassword: string
+  agree: any
 }
 
 export default function CreateNewAccForm(props: any) {
@@ -25,7 +26,7 @@ export default function CreateNewAccForm(props: any) {
 
   const { } = useRegisterNewUserMutation();
 
-  const { register, handleSubmit, watch, formState: { errors }, getValues, setError } = useForm<Inputs>();
+  const { register, handleSubmit, formState: { errors }, getValues, control } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log('From Submit', data)
@@ -43,7 +44,7 @@ export default function CreateNewAccForm(props: any) {
     // if (password != repeatPassword) {
     //   console.log('password is not equele');
     //   setError('password', { type: 'value', message: 'Password must be match' });
-    //   console.log(errors);
+    console.log(errors);
     // }
   }
 
@@ -150,14 +151,20 @@ export default function CreateNewAccForm(props: any) {
 
       <div className={classes.formItem}>
         <div className={classes.formCheckContainer}>
-
-          <Checkbox
-            className={classes.formCheckBox}
-            checked={agree}
-            onChange={() => toogleAgree()}
-          ></Checkbox>
+          <Controller
+            control={control}
+            name='agree'
+            rules={{ required: true }}
+            render={({ field }) =>
+              <Checkbox {...field}
+                className={classes.formCheckBox}
+              // checked={agree}
+              // onChange={() => toogleAgree()}
+              ></Checkbox>
+            } />
           <span className={classes.formAgree}>I agree to the processing of my personal information</span>
         </div>
+        <span className={classes.errorMessage}>{errors.agree ? 'You need confermed' : null}</span>
       </div>
       <div className={classes.formItem}>
         <input
