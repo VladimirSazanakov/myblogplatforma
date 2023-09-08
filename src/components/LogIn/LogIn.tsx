@@ -106,7 +106,7 @@ export default function (props: any) {
           {createAticle}
           <Link
             className={style.proxyLink}
-            to='/edit'>
+            to='/profile'>
             {userName}
             {avatar}
           </Link>

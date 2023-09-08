@@ -21,6 +21,7 @@ import SignInPage from '../Pages/SignIn';
 import SignUpPage from '../Pages/SignUp';
 
 import classes from './App.module.scss';
+import ProfilePage from '../Pages/Profile';
 
 function App() {
   // const { data = [], isError, isLoading } = useGetArticlesQuery(undefined);
@@ -53,6 +54,7 @@ function App() {
           <Route path="/article/:slug" element={<ArticleFullPage />} />
           <Route path="/sign-in" element={<SignInPage />} />
           <Route path="/sign-up" element={<SignUpPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </main>
     </div>
