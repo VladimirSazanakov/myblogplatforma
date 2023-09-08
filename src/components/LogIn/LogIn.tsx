@@ -3,8 +3,9 @@ import { Avatar } from 'antd';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks/reducer';
 import { useGetUserQuery } from '../Api/RtkQuery';
+import { LOG_OUT, SET_LOGIN, SET_TOKEN } from '../../ReduxToolkit/reducers/user';
 
-import avatarImg from '../../img/userIcon.png';
+import avatarImgDefault from '../../img/userIcon.png';
 
 import style from './LogIn.module.scss';
 
@@ -17,8 +18,11 @@ export default function (props: any) {
   const { data, isError, isLoading } = useGetUserQuery(token);
 
   useEffect(() => {
-    console.log(data);
-  }, [token]),
+    if (localStorage.getItem('token')) {
+      dispatch(SET_LOGIN(true));
+      dispatch(SET_TOKEN(localStorage.getItem('token')));
+    }
+  }, []),
 
     useEffect(() => {
       console.log('request data from server', data);
@@ -27,7 +31,12 @@ export default function (props: any) {
 
   // const [logined, setLogined] = useState(false);
   const loginInfo = {};
-  const user = 'John Dear';
+  // const user = 'John Dear';
+  const user = data ? data.user.username : ' ';
+
+  // const avatarImg = data ? data.user.img ? data.user.img : avatarImgDefault : avatarImgDefault;
+
+  const avatarImg = data?.user.img || avatarImgDefault;
 
   const signIn = (
     <Link
@@ -74,6 +83,11 @@ export default function (props: any) {
   const handleLogOut = () => {
     // setLogined(false);
     console.log(logined);
+    console.log(state);
+    dispatch(LOG_OUT());
+    localStorage.clear();
+    // dispatch(SET_LOGIN(false));
+    // dispatch(SET_TOKEN(''));
   };
 
   const handleCrateAticle = () => { };
@@ -90,8 +104,12 @@ export default function (props: any) {
       {logined ? (
         <>
           {createAticle}
-          {userName}
-          {avatar}
+          <Link
+            className={style.proxyLink}
+            to='/edit'>
+            {userName}
+            {avatar}
+          </Link>
           {logOut}
         </>
       ) : (
@@ -101,7 +119,7 @@ export default function (props: any) {
 
         </>
       )}
-      <button onClick={() => AuthClick()} >Retit send token</button>
+      {/* <button onClick={() => AuthClick()} >Retit send token</button> */}
     </div>
   );
 }

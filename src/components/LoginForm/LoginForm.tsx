@@ -27,7 +27,7 @@ export default function LoginForm(props: any) {
 
   const formTitle = 'SignIn';
   const { register, handleSubmit, watch, formState: { errors }, } = useForm<Inputs>();
-  const [fetchLogin, { data, isLoading, isError, status }] = useUserLoginMutation();
+  const [fetchLogin, { data, isLoading, isError, status, isSuccess }] = useUserLoginMutation();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const userData: userLogin = {
@@ -36,34 +36,33 @@ export default function LoginForm(props: any) {
         password: data.password
       }
     }
-    console.log('data from form', data)
-    dispatch(SET_LOGIN(true));
-    dispatch(SET_TOKEN(''));
+    console.log('data from form', data);
+
     loginUser(userData);
   };
 
   const loginUser = async (userData: userLogin) => {
+    console.log('login user start');
     if (userData) {
       try {
-        await fetchLogin(userData);
+        const dataServer = await fetchLogin(userData).unwrap();
+        if (dataServer.user.token) {
+          dispatch(SET_TOKEN(dataServer.user.token));
+          localStorage.setItem('token', dataServer.user.token);
+          dispatch(SET_LOGIN(true));
+        }
+      } catch (err) {
+        console.log(err);
 
-        await console.log(data.user.token);
-
-        await dispatch(SET_TOKEN(data.user.token));
-
-        console.log(status);
-        console.log(isLoading);
-        console.log('isError', isError);
-        console.log('token in state', bigState.token);
-
-      } catch (err: any) {
-        console.log('error is', err.errors);
       }
     } else {
       console.log('no data');
     }
 
   }
+  useEffect(() => {
+    console.log('status is', status);
+  }, [status])
 
   useEffect(() => {
     console.log('token in state use effect', bigState.token);

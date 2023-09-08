@@ -51,6 +51,10 @@ export const user = createSlice({
     [userActions.setImage](state, action) {
       state.image = action.payload;
     },
+    [userActions.logOut]() {
+      return initialState;
+      console.log('logout in state');
+    }
 
   },
 });
@@ -62,6 +66,7 @@ export const {
   SET_EMAIL,
   SET_TOKEN,
   SET_BIO,
-  SET_IMAGE } = user.actions;
+  SET_IMAGE,
+  LOG_OUT } = user.actions;
 
 export default user.reducer;
