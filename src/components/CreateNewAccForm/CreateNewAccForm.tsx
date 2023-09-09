@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Checkbox } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { useRegisterNewUserMutation } from '../Api/RtkQuery';
 
@@ -26,6 +26,7 @@ export default function CreateNewAccForm(props: any) {
   const [successed, setSuccessed] = useState(false);
   const [fetchCreateUser, { data, isLoading, isError }] = useRegisterNewUserMutation();
   const { register, handleSubmit, formState: { errors }, getValues, control, setError } = useForm<Inputs>();
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const newUser: userDataApi = {
@@ -43,6 +44,7 @@ export default function CreateNewAccForm(props: any) {
       try {
         await fetchCreateUser(newUser).unwrap();
         setSuccessed(true);
+        setTimeout(() => navigate('/sign-in', { replace: true }), 2000);
       } catch (error: any) {
         showErrors(error.data);
       }

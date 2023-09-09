@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Checkbox } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { useGetUserQuery, useUpdateUserMutation } from '../Api/RtkQuery';
 
@@ -34,6 +34,7 @@ export default function ProfileForm(props: any) {
   const { data, isError, isLoading } = useGetUserQuery(token);
 
   const { register, handleSubmit, formState: { errors, }, getValues, control, setError, setValue } = useForm<Inputs>();
+  const navigate = useNavigate();
 
   let userName = data ? data.user.username : '';
   let email = data ? data.user.email : '';
@@ -69,6 +70,7 @@ export default function ProfileForm(props: any) {
         const data = await updateUser(rawData).unwrap();
         console.log(data);
         setSuccessed(true);
+        setTimeout(() => navigate(-1), 2000);
       } catch (error: any) {
         console.log(error);
         showErrors(error.data);

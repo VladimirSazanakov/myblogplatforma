@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Avatar } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks/reducer';
 import { useGetUserQuery } from '../Api/RtkQuery';
 import { LOG_OUT, SET_LOGIN, SET_TOKEN } from '../../ReduxToolkit/reducers/user';
@@ -16,6 +16,7 @@ export default function (props: any) {
   const logined = state.isLogin;
   const token = state.token;
   const { data, isError, isLoading } = useGetUserQuery(token);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (localStorage.getItem('token')) {

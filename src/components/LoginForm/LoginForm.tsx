@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useUserLoginMutation } from '../Api/RtkQuery';
 
@@ -28,6 +28,7 @@ export default function LoginForm(props: any) {
   const formTitle = 'SignIn';
   const { register, handleSubmit, watch, formState: { errors }, } = useForm<Inputs>();
   const [fetchLogin, { data, isLoading, isError, status, isSuccess }] = useUserLoginMutation();
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const userData: userLogin = {
@@ -50,6 +51,7 @@ export default function LoginForm(props: any) {
           dispatch(SET_TOKEN(dataServer.user.token));
           localStorage.setItem('token', dataServer.user.token);
           dispatch(SET_LOGIN(true));
+          setTimeout(() => navigate('/'), 1500);
         }
       } catch (err) {
         console.log(err);
