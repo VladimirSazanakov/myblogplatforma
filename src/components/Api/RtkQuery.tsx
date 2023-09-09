@@ -43,7 +43,25 @@ export const articleApi = createApi({
         body: body,
       }),
     }),
+    updateUser: build.mutation({
+      query: (data) => ({
+        url: 'user',
+        method: 'PUT',
+        headers: {
+          Authorization: `Token ${data.token}`,
+          'Content-Type': 'application/json',
+        },
+        body: data.body,
+      })
+    })
   }),
 });
 
-export const { useGetArticlesQuery, useGetArticleQuery, useRegisterNewUserMutation, useUserLoginMutation, useGetUserQuery } = articleApi;
+export const {
+  useGetArticlesQuery,
+  useGetArticleQuery,
+  useRegisterNewUserMutation,
+  useUserLoginMutation,
+  useGetUserQuery,
+  useUpdateUserMutation
+} = articleApi;

@@ -26,6 +26,7 @@ export default function (props: any) {
 
     useEffect(() => {
       console.log('request data from server', data);
+      // data ? avatarImg = data?.user.image : null;
     }, [data])
 
 
@@ -36,7 +37,9 @@ export default function (props: any) {
 
   // const avatarImg = data ? data.user.img ? data.user.img : avatarImgDefault : avatarImgDefault;
 
-  const avatarImg = data?.user.img || avatarImgDefault;
+  let avatarImg = data?.user.image || avatarImgDefault;
+
+  console.log(avatarImg);
 
   const signIn = (
     <Link
