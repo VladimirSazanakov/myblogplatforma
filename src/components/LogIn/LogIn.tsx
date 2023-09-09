@@ -68,13 +68,13 @@ export default function (props: any) {
   const avatar = <Avatar src={avatarImg} size={46} />;
   const userName = <span className={style.user_name}>{user}</span>;
   const createAticle = (
-    <a
-      href="#"
-      onClick={() => handleCrateAticle()}
+    <Link
+      to="/new-article"
+      // onClick={() => handleCrateAticle()}
       className={style.createAticle}
     >
       Create aticle
-    </a>
+    </Link>
   );
 
   const handleSignIn = () => {

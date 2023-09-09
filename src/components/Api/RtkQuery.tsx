@@ -5,6 +5,7 @@ export const articleApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://blog.kata.academy/api/',
   }),
+  tagTypes: ['user', 'article'],
   endpoints: (build) => ({
     getArticles: build.query({
       query: ({ limit = 5, offset = 0 }) => ({
@@ -14,11 +15,13 @@ export const articleApi = createApi({
           offset: offset,
         },
       }),
+      providesTags: result => ['article'],
     }),
     getArticle: build.query({
       query: (slug) => ({
         url: `articles/${slug}`,
       }),
+      providesTags: result => ['article'],
     }),
     getUser: build.query({
       query: (token) => ({
@@ -28,6 +31,7 @@ export const articleApi = createApi({
           Authorization: `Token ${token}`,
         }
       }),
+      providesTags: result => ['user'],
     }),
     registerNewUser: build.mutation({
       query: (body) => ({
@@ -35,6 +39,7 @@ export const articleApi = createApi({
         method: 'POST',
         body: body,
       }),
+      invalidatesTags: ['user'],
     }),
     userLogin: build.mutation({
       query: (body) => ({
@@ -42,6 +47,7 @@ export const articleApi = createApi({
         method: 'POST',
         body: body,
       }),
+      invalidatesTags: ['user'],
     }),
     updateUser: build.mutation({
       query: (data) => ({
@@ -52,8 +58,9 @@ export const articleApi = createApi({
           'Content-Type': 'application/json',
         },
         body: data.body,
-      })
-    })
+      }),
+      invalidatesTags: ['user'],
+    }),
   }),
 });
 
