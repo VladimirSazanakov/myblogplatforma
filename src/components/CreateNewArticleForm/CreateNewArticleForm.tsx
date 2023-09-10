@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Checkbox } from 'antd';
+import { Checkbox, Space } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
-import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { useForm, SubmitHandler, Controller, useFieldArray } from 'react-hook-form';
 import { useRegisterNewUserMutation } from '../Api/RtkQuery';
 
 import classes from './CreateNewArticleForm.module.scss';
@@ -24,7 +24,15 @@ export default function CreateNewArticleForm(props: any) {
   const formTitle = 'Create new article';
   const [successed, setSuccessed] = useState(false);
   // const [fetchCreateUser, { data, isLoading, isError }] = useRegisterNewUserMutation();
-  const { register, handleSubmit, formState: { errors }, getValues, control, setError } = useForm<Inputs>();
+  const { register, handleSubmit, formState: { errors }, getValues, control, setError } = useForm<Inputs>({ defaultValues: { tags: [''] } });
+
+  const { fields, append, remove } = useFieldArray({
+    name: "tags",
+    control,
+    rules: {
+      required: false
+    }
+  })
 
   const navigate = useNavigate();
 
@@ -134,19 +142,38 @@ export default function CreateNewArticleForm(props: any) {
           ></textarea>
           <span className={classes.errorMessage}>{errors.text?.message}</span>
         </div>
+      </div>
 
+      <div className={classes.formItem}>
         <div className={classes.itemContainer}>
           <label className={classes.formLabel}>Tags</label>
-          <input
-            type="text"
-            className={classes.formTags}
-            placeholder="Tags"
-            {...register("tags", {
+          <div className={classes.tabsWrapper}>
+            <div className={classes.tabsSpace}>
 
-            })}
-            aria-invalid={errors.tags ? true : false}
-          ></input>
-          <span className={classes.errorMessage}>{errors.tags?.message}</span>
+              {fields.map((field, index) => {
+                return (
+                  <>
+                    <div key={field.id} className={classes.tabItem}>
+
+                      <input
+                        key={field.id}
+                        type="text"
+                        className={classes.formTags}
+                        placeholder="Tags"
+                        {...register(`tags.${index}`, {
+                          required: "tags must be required",
+                        })}
+                        aria-invalid={errors.tags?.[index] ? true : false}
+                      ></input>
+                      <button className={classes.tagsDeleteBtn} onClick={() => remove(index)}>Delete</button>
+                    </div>
+                    <span className={classes.errorMessage}>{errors.tags?.[index]?.message}</span>
+                  </>
+                )
+              })}
+            </div>
+            <input type='button' value={'Append'} className={classes.tagsAppendBtn} onClick={() => append('')} />
+          </div>
         </div>
       </div>
 
