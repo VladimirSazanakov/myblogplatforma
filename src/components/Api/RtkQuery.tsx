@@ -23,6 +23,18 @@ export const articleApi = createApi({
       }),
       providesTags: result => ['article'],
     }),
+    createArticle: build.mutation({
+      query: (data) => ({
+        url: 'articles',
+        method: 'POST',
+        headers: {
+          Authorization: `Token ${data.token}`,
+          'Content-Type': 'application/json',
+        },
+        body: data.body,
+      }),
+      invalidatesTags: ['article'],
+    }),
     getUser: build.query({
       query: (token) => ({
         url: 'user',
@@ -70,5 +82,6 @@ export const {
   useRegisterNewUserMutation,
   useUserLoginMutation,
   useGetUserQuery,
-  useUpdateUserMutation
+  useUpdateUserMutation,
+  useCreateArticleMutation,
 } = articleApi;

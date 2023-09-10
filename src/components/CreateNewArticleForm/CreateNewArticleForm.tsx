@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import { Checkbox, Space } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler, Controller, useFieldArray } from 'react-hook-form';
-import { useRegisterNewUserMutation } from '../Api/RtkQuery';
+import { useCreateArticleMutation } from '../Api/RtkQuery';
+
 
 import classes from './CreateNewArticleForm.module.scss';
+import { useAppSelector } from '../hooks/reducer';
 
 type Inputs = {
   title: string
   description: string
-  text: string
+  body: string
   tags: string[]
 }
 
@@ -23,7 +25,9 @@ type userDataApi = {
 export default function CreateNewArticleForm(props: any) {
   const formTitle = 'Create new article';
   const [successed, setSuccessed] = useState(false);
-  // const [fetchCreateUser, { data, isLoading, isError }] = useRegisterNewUserMutation();
+  const state = useAppSelector(state => state.user);
+
+  const [fetchCreateArticle, { data, isLoading, isError }] = useCreateArticleMutation();
   const { register, handleSubmit, formState: { errors }, getValues, control, setError } = useForm<Inputs>({ defaultValues: { tags: [''] } });
 
   const { fields, append, remove } = useFieldArray({
@@ -38,22 +42,28 @@ export default function CreateNewArticleForm(props: any) {
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log(data);
-    // const newUser: userDataApi = {
-    //   user: {
-    //     username: data.username,
-    //     email: data.email,
-    //     password: data.password,
-    //   }
-    // }
-    // fetchNewUser(newUser);
+
+    const newArticle = {
+      token: state.token,
+      body: {
+        article: {
+          title: data.title,
+          description: data.description,
+          body: data.body,
+          tagList: data.tags,
+        }
+      }
+    }
+    console.log(newArticle);
+    fetchNewArticle(newArticle);
   }
 
-  const fetchNewUser = async (newUser: userDataApi) => {
-    if (newUser) {
+  const fetchNewArticle = async (data: any) => {
+    if (data) {
       try {
-        // await fetchCreateUser(newUser).unwrap();
+        await fetchCreateArticle(data).unwrap();
         setSuccessed(true);
-        setTimeout(() => navigate('/sign-in', { replace: true }), 2000);
+        // setTimeout(() => navigate('/sign-in', { replace: true }), 2000);
       } catch (error: any) {
         showErrors(error.data);
       }
@@ -61,6 +71,7 @@ export default function CreateNewArticleForm(props: any) {
   }
 
   const showErrors = (errData: any) => {
+    console.log(errData);
     // const errItems = errData.errors;
     // const errKeys = Object.keys(errItems);
     // console.log(errKeys);
@@ -135,12 +146,12 @@ export default function CreateNewArticleForm(props: any) {
             // type="aria"
             className={classes.formAria}
             placeholder="Text"
-            {...register('text', {
+            {...register('body', {
               required: 'Text is required',
             })}
-            aria-invalid={errors.text ? true : false}
+            aria-invalid={errors.body ? true : false}
           ></textarea>
-          <span className={classes.errorMessage}>{errors.text?.message}</span>
+          <span className={classes.errorMessage}>{errors.body?.message}</span>
         </div>
       </div>
 
