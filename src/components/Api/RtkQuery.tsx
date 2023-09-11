@@ -58,6 +58,28 @@ export const articleApi = createApi({
       }),
       invalidatesTags: ['article'],
     }),
+    addLikeArticle: build.mutation({
+      query: (data) => ({
+        url: `articles/${data.slug}/favorite`,
+        method: 'POST',
+        headers: {
+          Authorization: `Token ${data.token}`,
+          'Content-Type': 'application/json',
+        },
+      }),
+      invalidatesTags: ['article'],
+    }),
+    delLikeArticle: build.mutation({
+      query: (data) => ({
+        url: `articles/${data.slug}/favorite`,
+        method: 'DELETE',
+        headers: {
+          Authorization: `Token ${data.token}`,
+          'Content-Type': 'application/json',
+        },
+      }),
+      invalidatesTags: ['article'],
+    }),
     getUser: build.query({
       query: (token) => ({
         url: 'user',
@@ -109,4 +131,6 @@ export const {
   useCreateArticleMutation,
   useUpdateArticleMutation,
   useDeleteArticleMutation,
+  useAddLikeArticleMutation,
+  useDelLikeArticleMutation,
 } = articleApi;

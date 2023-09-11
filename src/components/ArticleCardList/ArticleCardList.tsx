@@ -25,6 +25,7 @@ export default function ArticleCardList(props: any) {
   const text = article.body;
   const createdDate = article.createdAt;
   const likesCount = article.favoritesCount;
+  const favorited = article.favorited;
 
   const buttons = (slug: string) => {
     if (!full) {
@@ -38,7 +39,7 @@ export default function ArticleCardList(props: any) {
     <div className={full ? style.ArticleCardFull : style.ArticleCardList}>
       <div className={style.ArticleHeader}>
         <Space size={4} align="start" direction="vertical">
-          <CardTitle title={title} slug={slug} likes={likesCount} />
+          <CardTitle title={title} slug={slug} likes={likesCount} favorited={favorited} />
           <Tags tags={tags} />
           <ArticleDescrip description={description} />
         </Space>
