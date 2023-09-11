@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Checkbox, Space } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler, Controller, useFieldArray } from 'react-hook-form';
-import { useCreateArticleMutation } from '../Api/RtkQuery';
+import { useCreateArticleMutation, useUpdateArticleMutation } from '../Api/RtkQuery';
 
 
 import classes from './CreateNewArticleForm.module.scss';
@@ -30,11 +30,27 @@ export default function CreateNewArticleForm(props: any) {
     formTitle = 'Edit article';
   };
 
+  const article = props.article;
+  const fetchToServer = props.fetchFunc;
+  const slug = props.slug;
+
+  console.log(article);
+
   const [successed, setSuccessed] = useState(false);
   const state = useAppSelector(state => state.user);
 
-  const [fetchCreateArticle, { data, isLoading, isError }] = useCreateArticleMutation();
-  const { register, handleSubmit, formState: { errors }, getValues, control, setError } = useForm<Inputs>({ defaultValues: { tags: [''] } });
+  // const [fetchCreateArticle, { data, isLoading, isError }] = useCreateArticleMutation();
+  // const [fetchUpdateArticle] = useUpdateArticleMutation();
+
+  const { register, handleSubmit, formState: { errors }, getValues, control, setError } = useForm<Inputs>({
+    defaultValues:
+    {
+      title: article.title,
+      description: article.description,
+      body: article.body,
+      tags: article.tagList
+    }
+  });
 
   const { fields, append, remove } = useFieldArray({
     name: "tags",
@@ -51,6 +67,7 @@ export default function CreateNewArticleForm(props: any) {
 
     const newArticle = {
       token: state.token,
+      slug: slug,
       body: {
         article: {
           title: data.title,
@@ -67,7 +84,7 @@ export default function CreateNewArticleForm(props: any) {
   const fetchNewArticle = async (data: any) => {
     if (data) {
       try {
-        await fetchCreateArticle(data).unwrap();
+        await fetchToServer(data).unwrap();
         setSuccessed(true);
         // setTimeout(() => navigate('/sign-in', { replace: true }), 2000);
       } catch (error: any) {
@@ -197,7 +214,7 @@ export default function CreateNewArticleForm(props: any) {
       {successed ? <span className={classes.successed}>successful</span> : null}
       <div className={classes.formItem}>
         <input
-          value={'Create'}
+          value={'Send'}
           type="submit"
           className={classes.formSubmitBtn}
         />

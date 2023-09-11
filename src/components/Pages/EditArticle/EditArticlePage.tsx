@@ -11,25 +11,27 @@ import { useDispatch, useSelector } from 'react-redux';
 import useSelection from 'antd/es/table/hooks/useSelection';
 
 import ApiBlog from '../../../service/ApiBlog';
-import { useCreateArticleMutation, useGetArticlesQuery } from '../../Api/RtkQuery';
+import { useGetArticlesQuery, useUpdateArticleMutation } from '../../Api/RtkQuery';
 import ArticleCardList from '../../ArticleCardList';
 import { article } from '../../../types/types';
 import { articleList } from '../../../ReduxToolkit/reducers/articleList';
 import { useAppSelector } from '../../hooks/reducer';
+import { useParams } from 'react-router-dom';
+import { useGetArticleQuery } from '../../Api/RtkQuery';
 
-import classes from './NewArticlePage.module.scss';
+import classes from './EditArticlePage.module.scss';
+
+//test component;
 import CreateNewArticleForm from '../../NewArticleFormTest';
 
-export default function NewArticlePage() {
+export default function EditArticlePage() {
+  const { slug } = useParams();
+  const { data, isError, isLoading } = useGetArticleQuery(slug);
+  const [fetchUpdateArticle] = useUpdateArticleMutation();
 
-  const newArticle = {
-    title: '',
-    body: '',
-    description: '',
-    tagList: [],
-  }
+  console.log(slug);
+  console.log(data);
 
-  const [fetchCreateArticle, { data, isLoading, isError }] = useCreateArticleMutation();
   // const [articles, setArticles] = useState([]);
   // const [currentPage, setCurrentPage] = useState(1);
   // const [totalPages, setTotalPages] = useState(0);
@@ -104,7 +106,8 @@ export default function NewArticlePage() {
 
   return (
     <div className={classes.SignUpPage}>
-      <CreateNewArticleForm mode='create' article={newArticle} fetchFunc={fetchCreateArticle} />
+      {/* EditArticlePage */}
+      {data ? <CreateNewArticleForm mode='edit' article={data.article} fetchFunc={fetchUpdateArticle} slug={slug} /> : null}
     </div>
   );
 }

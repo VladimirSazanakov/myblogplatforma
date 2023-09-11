@@ -1,0 +1,179 @@
+@import '../AppStyleVar.scss';
+
+.ArticleButtons {
+  @include headerTextStyle;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+// .edit {
+//   @include headerTextStyle;
+//   box-sizing: border-box;
+//   text-decoration: none;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   height: 51px;
+//   width: 109px;
+//   padding-left: 19px;
+//   padding-right: 19px;
+//   margin-left: 19px;
+//   transition: all 1s;
+//   word-wrap: none;
+// }
+
+// a.LogIn_items:hover {
+//   @include headerTextStyle;
+//   color: $header-hover-color;
+//   box-shadow: inset 0 0 0 1px $header-hover-color;
+//   border-radius: 5px;
+//   transition: all 1s;
+// }
+
+// .LogIn_logOut {
+//   @include headerTextLogined;
+//   box-sizing: border-box;
+//   text-decoration: none;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   height: 51px;
+//   width: 109px;
+//   padding-left: 19px;
+//   padding-right: 19px;
+//   margin-left: 27px;
+//   transition: all 1s;
+//   box-shadow: inset 0 0 0 1px $header-logout-color;
+//   border-radius: 5px;
+// }
+
+// .LogIn_logOut:hover {
+//   @include headerTextLogined;
+//   color: $header-hover-color;
+//   box-shadow: inset 0 0 0 1px $header-hover-color;
+//   border-radius: 5px;
+//   transition: all 1s;
+// }
+
+// .user_name {
+//   @include headerTextStyle;
+//   box-sizing: border-box;
+//   text-decoration: none;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   height: 51px;
+//   width: auto;
+//   padding-left: 19px;
+//   padding-right: 19px;
+//   margin-left: 19px;
+//   transition: all 1s;
+//   word-wrap: none;
+// }
+
+.edit {
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  line-height: 22px;
+  box-sizing: border-box;
+  text-decoration: none;
+  display: flex;
+  color: $successesful-color;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  width: auto;
+  padding: 5px 19px;
+  // margin-left: 27px;
+  // transition: all 1s;
+  // box-shadow: inset 0 0 0 1px $successesful-color;
+  border: 1px solid $successesful-color;
+  border-radius: 5px;
+}
+
+// .tagsAppendBtn {
+//   @include FormInputText16;
+//   color: $info-color;
+//   border-radius: 4px;
+//   border: 1px solid $info-color;
+//   background-color: $background-color-base;
+//   height: 44px;
+//   width: 136px;
+// }
+
+.edit:hover {
+  background: $successesful-hover-color;
+  color: $grey-grey-1;
+}
+
+.edit:active {
+  background: $successesful-focus-color;
+  box-shadow: 0 0 5px 2px $successesful-hover-color;
+  color: $grey-grey-1;
+}
+
+.tagsDeleteBtn {
+  @include FormInputText16;
+  color: $highlight-color;
+  border-radius: 4px;
+  border: 1px solid $highlight-color;
+  background-color: $background-color-base;
+  height: 44px;
+  width: 136px;
+}
+
+.tagsDeleteBtn:hover {
+  background: $highlight-hover-color;
+  color: $grey-grey-1;
+}
+
+.tagsDeleteBtn:active {
+  background: $highlight-active-color;
+  box-shadow: 0 0 5px 2px $highlight-hover-color;
+  color: $grey-grey-1;
+}
+
+.delete {
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  line-height: 22px;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: $highlight-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  width: auto;
+  padding: 5px 19px;
+  // margin-left: 27px;
+  // transition: all 1s;
+  // box-shadow: inset 0 0 0 1px $highlight-color;
+  border-radius: 5px;
+  background-color: $background-color-base;
+  border: 1px solid $highlight-color;
+}
+
+// .tagsAppendBtn {
+//   @include FormInputText16;
+//   color: $info-color;
+//   border-radius: 4px;
+//   border: 1px solid $info-color;
+//   background-color: $background-color-base;
+//   height: 44px;
+//   width: 136px;
+// }
+
+.delete:hover {
+  background: $highlight-hover-color;
+  color: $grey-grey-1;
+}
+
+.delete:active {
+  background: $highlight-active-color;
+  box-shadow: 0 0 5px 2px $highlight-hover-color;
+  color: $grey-grey-1;
+}

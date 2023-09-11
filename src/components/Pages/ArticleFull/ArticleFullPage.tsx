@@ -23,7 +23,7 @@ export default function ArticleFullPage(props: any) {
   // const article = data.article;
   const keyValue = 0;
 
-  console.log(data);
+  // console.log(data);
 
   // let list: any = [];
 

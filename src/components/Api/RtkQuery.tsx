@@ -35,6 +35,29 @@ export const articleApi = createApi({
       }),
       invalidatesTags: ['article'],
     }),
+    updateArticle: build.mutation({
+      query: (data) => ({
+        url: `articles/${data.slug}`,
+        method: 'PUT',
+        headers: {
+          Authorization: `Token ${data.token}`,
+          'Content-Type': 'application/json',
+        },
+        body: data.body,
+      }),
+      invalidatesTags: ['article'],
+    }),
+    deleteArticle: build.mutation({
+      query: (data) => ({
+        url: `articles/${data.slug}`,
+        method: 'DELETE',
+        headers: {
+          Authorization: `Token ${data.token}`,
+          'Content-Type': 'application/json',
+        },
+      }),
+      invalidatesTags: ['article'],
+    }),
     getUser: build.query({
       query: (token) => ({
         url: 'user',
@@ -84,4 +107,6 @@ export const {
   useGetUserQuery,
   useUpdateUserMutation,
   useCreateArticleMutation,
+  useUpdateArticleMutation,
+  useDeleteArticleMutation,
 } = articleApi;
