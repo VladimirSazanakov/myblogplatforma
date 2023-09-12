@@ -49,7 +49,7 @@ export enum userActions {
   setToken = 'SET_TOKEN',
   setBio = 'SET_BIO',
   setImage = 'SET_IMAGE',
-  logOut = 'LOG_OUT'
+  logOut = 'LOG_OUT',
 }
 
 //------------RawTicketTypes-------------------

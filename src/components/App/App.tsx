@@ -29,11 +29,11 @@ function App() {
           <Route path="/article/:slug" element={<ArticleFullPage />} />
           <Route path="/sign-in" element={<SignInPage />} />
           <Route path="/sign-up" element={<SignUpPage />} />
-          <Route path='*' element={<Navigate to='/' replace />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
     </div>
   );
-};
+}
 
 export default App;

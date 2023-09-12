@@ -1,8 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import { articleApi } from '../components/Api/RtkQuery';
-import user from './reducers/user';
 
+import user from './reducers/user';
 import articleList from './reducers/articleList';
 
 const rootReducer = combineReducers({

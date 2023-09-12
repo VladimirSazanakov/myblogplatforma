@@ -1,15 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 import { userActions } from '../../types/types';
 
 interface user {
-  isLogin: boolean
-  isLoading: boolean
-  isError: boolean
-  userName: string
-  email: string
-  token: string
-  bio: string
-  image: string
+  isLogin: boolean;
+  isLoading: boolean;
+  isError: boolean;
+  userName: string;
+  email: string;
+  token: string;
+  bio: string;
+  image: string;
 }
 
 const initialState: user = {
@@ -54,8 +55,7 @@ export const user = createSlice({
     [userActions.logOut]() {
       return initialState;
       console.log('logout in state');
-    }
-
+    },
   },
 });
 export const {
@@ -67,6 +67,7 @@ export const {
   SET_TOKEN,
   SET_BIO,
   SET_IMAGE,
-  LOG_OUT } = user.actions;
+  LOG_OUT,
+} = user.actions;
 
 export default user.reducer;

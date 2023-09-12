@@ -9,9 +9,7 @@ export default function ArticleCardText(props: any) {
 
   return (
     <div className={style.ArticleFullText}>
-      <ReactMarkdown remarkPlugins={[remarkGfm]}>
-        {textValue}
-      </ReactMarkdown>
+      <ReactMarkdown remarkPlugins={[remarkGfm]}>{textValue}</ReactMarkdown>
     </div>
   );
 }

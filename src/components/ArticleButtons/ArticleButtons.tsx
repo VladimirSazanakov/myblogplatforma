@@ -1,19 +1,23 @@
 import React from 'react';
 import { Popconfirm } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
+
 import { useAppSelector } from '../hooks/reducer';
-import { useGetUserQuery, useGetArticleQuery, useDeleteArticleMutation } from '../Api/RtkQuery';
+import {
+  useGetUserQuery,
+  useGetArticleQuery,
+  useDeleteArticleMutation,
+} from '../Api/RtkQuery';
 
 import style from './ArticleButtons.module.scss';
 
 interface dataForArticle {
   slug: string;
-  token?: string
+  token?: string;
 }
 
 export default function (props: any) {
-
-  const state = useAppSelector(state => state.user);
+  const state = useAppSelector((state) => state.user);
   const slug = props.slug;
   const token = state.token;
   const { data: dataUser } = useGetUserQuery(token);
@@ -32,18 +36,18 @@ export default function (props: any) {
             {deleteBtn}
             {editBtn}
           </div>
-        )
+        );
       }
     } else {
       return null;
     }
-  }
+  };
 
   const handleDeleteBtn = () => {
     const data: dataForArticle = {
       token: token,
-      slug: slug
-    }
+      slug: slug,
+    };
     deleteArticle(data);
   };
 
@@ -52,38 +56,29 @@ export default function (props: any) {
       try {
         await fetchDeleteArticle(data).unwrap();
         navigate(-1);
-      } catch (error: any) {
-      }
+      } catch (error: any) {}
     }
-  }
+  };
   const confirm = (e?: React.MouseEvent<HTMLElement>) => {
     handleDeleteBtn();
   };
-  const cancel = (e?: React.MouseEvent<HTMLElement>) => {
-  };
+  const cancel = (e?: React.MouseEvent<HTMLElement>) => {};
 
   const deleteBtn = (
     <Popconfirm
-      title='Are you sure to delete this article?'
+      title="Are you sure to delete this article?"
       onConfirm={confirm}
       onCancel={cancel}
       okText="Yes"
-      cancelText='No'
-      placement='right' >
-
-      <button
-        className={style.delete}
-      >
-        Delete
-      </button>
+      cancelText="No"
+      placement="right"
+    >
+      <button className={style.delete}>Delete</button>
     </Popconfirm>
   );
 
   const editBtn = (
-    <Link
-      to={`/article/${slug}/edit`}
-      className={style.edit}
-    >
+    <Link to={`/article/${slug}/edit`} className={style.edit}>
       Edit
     </Link>
   );
@@ -91,7 +86,9 @@ export default function (props: any) {
   return (
     <>
       {showButtons()}
-      {isError ? <span className={style.errorMessage}>Error Delete Article</span> : null}
+      {isError ? (
+        <span className={style.errorMessage}>Error Delete Article</span>
+      ) : null}
     </>
   );
 }

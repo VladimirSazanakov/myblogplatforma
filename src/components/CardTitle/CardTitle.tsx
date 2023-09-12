@@ -3,29 +3,32 @@ import { HeartFilled, HeartOutlined } from '@ant-design/icons';
 import { Space } from 'antd';
 import { Link } from 'react-router-dom';
 
-import style from './CardTitle.module.scss';
 import { useAppSelector } from '../hooks/reducer';
-import { useAddLikeArticleMutation, useDelLikeArticleMutation } from '../Api/RtkQuery';
+import {
+  useAddLikeArticleMutation,
+  useDelLikeArticleMutation,
+} from '../Api/RtkQuery';
+
+import style from './CardTitle.module.scss';
 
 export default function CardTitle(props: any) {
   const title = props.title;
   const slug = props.slug;
   const liked = props.favorited;
   const likes = props.likes;
-  const state = useAppSelector(state => state.user);
+  const state = useAppSelector((state) => state.user);
   const isLogin = state.isLogin;
   const token = state.token;
 
   const [fetchAddLike] = useAddLikeArticleMutation();
   const [fetchDelLike] = useDelLikeArticleMutation();
 
-
   const handleHeart = () => {
     if (isLogin) {
       const data = {
         token: token,
         slug: slug,
-      }
+      };
       if (liked) {
         delLike(data);
       } else {
@@ -37,16 +40,14 @@ export default function CardTitle(props: any) {
   const addLike = async (data: any) => {
     try {
       const res = await fetchAddLike(data);
-    } catch (error) {
-    }
-  }
+    } catch (error) {}
+  };
 
   const delLike = async (data: any) => {
     try {
       const res = await fetchDelLike(data);
-    } catch (error) {
-    }
-  }
+    } catch (error) {}
+  };
 
   return (
     <div className={style.CardTitle}>

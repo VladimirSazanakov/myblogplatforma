@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Pagination, Space } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
-import ApiBlog from '../../../service/ApiBlog';
 import { useGetArticlesQuery } from '../../Api/RtkQuery';
 import ArticleCardList from '../../ArticleCardList';
 import { article } from '../../../types/types';
@@ -13,7 +12,6 @@ import classes from './ArticleListPage.module.scss';
 
 export default function ArticleListPage() {
   const limit = 5;
-  const apiBlog = new ApiBlog();
 
   const dispatch = useDispatch();
   const state = useAppSelector((state) => state);
@@ -42,7 +40,8 @@ export default function ArticleListPage() {
     data &&
     data.articles.map((el: any) => {
       keyValue++;
-      if (el) return <ArticleCardList key={keyValue} article={el} token={token} />;
+      if (el)
+        return <ArticleCardList key={keyValue} article={el} token={token} />;
     });
 
   function onChangePagination(page: number) {

@@ -7,7 +7,6 @@ import ArticleDescrip from '../ArticleDescrip';
 import AuthorInfo from '../AuthorInfo';
 import ArticleFullText from '../ArticleFullText';
 import ArticleButtons from '../ArticleButtons';
-
 import { article } from '../../types/types';
 
 import style from './ArticleCardList.module.scss';
@@ -29,19 +28,24 @@ export default function ArticleCardList(props: any) {
     if (!full) {
       return null;
     } else {
-      return <ArticleButtons slug={slug} />
+      return <ArticleButtons slug={slug} />;
     }
-  }
+  };
 
   return (
     <div className={full ? style.ArticleCardFull : style.ArticleCardList}>
       <div className={style.ArticleHeader}>
         <Space size={4} align="start" direction="vertical">
-          <CardTitle title={title} slug={slug} likes={likesCount} favorited={favorited} />
+          <CardTitle
+            title={title}
+            slug={slug}
+            likes={likesCount}
+            favorited={favorited}
+          />
           <Tags tags={tags} />
           <ArticleDescrip description={description} />
         </Space>
-        <Space size={30} direction='vertical' align='end'>
+        <Space size={30} direction="vertical" align="end">
           <AuthorInfo author={author} date={createdDate} />
           {buttons(slug)}
         </Space>

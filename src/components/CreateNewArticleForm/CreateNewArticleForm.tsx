@@ -2,48 +2,55 @@ import React, { useState } from 'react';
 // import { Checkbox, Space } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler, useFieldArray } from 'react-hook-form';
+
 import { useCreateArticleMutation } from '../Api/RtkQuery';
-
-
-import classes from './CreateNewArticleForm.module.scss';
 import { useAppSelector } from '../hooks/reducer';
 
+import classes from './CreateNewArticleForm.module.scss';
+
 type Inputs = {
-  title: string
-  description: string
-  body: string
-  tags: string[]
-}
+  title: string;
+  description: string;
+  body: string;
+  tags: string[];
+};
 
 type userDataApi = {
   user: {
-    username: string,
-    email: string,
-    password: string,
-  }
-}
+    username: string;
+    email: string;
+    password: string;
+  };
+};
 export default function CreateNewArticleForm(props: any) {
-
   let formTitle = 'Create new article';
 
   if (props.mode === 'edit') {
     formTitle = 'Edit article';
-  };
+  }
 
   const [successed, setSuccessed] = useState(false);
-  const state = useAppSelector(state => state.user);
+  const state = useAppSelector((state) => state.user);
   const navigate = useNavigate();
 
-  const [fetchCreateArticle, { data, isLoading, isError }] = useCreateArticleMutation();
-  const { register, handleSubmit, formState: { errors }, getValues, control, setError } = useForm<Inputs>({ defaultValues: { tags: [''] } });
+  const [fetchCreateArticle, { data, isLoading, isError }] =
+    useCreateArticleMutation();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+    control,
+    setError,
+  } = useForm<Inputs>({ defaultValues: { tags: [''] } });
 
   const { fields, append, remove } = useFieldArray({
-    name: "tags",
+    name: 'tags',
     control,
     rules: {
-      required: false
-    }
-  })
+      required: false,
+    },
+  });
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const newArticle = {
@@ -54,11 +61,11 @@ export default function CreateNewArticleForm(props: any) {
           description: data.description,
           body: data.body,
           tagList: data.tags,
-        }
-      }
-    }
+        },
+      },
+    };
     fetchNewArticle(newArticle);
-  }
+  };
 
   const fetchNewArticle = async (data: any) => {
     if (data) {
@@ -70,7 +77,7 @@ export default function CreateNewArticleForm(props: any) {
         showErrors(error.data);
       }
     }
-  }
+  };
 
   const showErrors = (errData: any) => {
     // console.log(errData);
@@ -91,10 +98,11 @@ export default function CreateNewArticleForm(props: any) {
           setError('body', { message: el + ' ' + errItems[el] });
           break;
         }
-        default: break;
+        default:
+          break;
       }
     });
-  }
+  };
 
   return (
     <form className={classes.Form} onSubmit={handleSubmit(onSubmit)}>
@@ -127,7 +135,9 @@ export default function CreateNewArticleForm(props: any) {
             })}
             aria-invalid={errors.description ? true : false}
           ></input>
-          <span className={classes.errorMessage}>{errors.description?.message}</span>
+          <span className={classes.errorMessage}>
+            {errors.description?.message}
+          </span>
         </div>
       </div>
 
@@ -151,30 +161,40 @@ export default function CreateNewArticleForm(props: any) {
           <label className={classes.formLabel}>Tags</label>
           <div className={classes.tabsWrapper}>
             <div className={classes.tabsSpace}>
-
               {fields.map((field, index) => {
                 return (
                   <>
                     <div key={field.id} className={classes.tabItem}>
-
                       <input
                         key={field.id}
                         type="text"
                         className={classes.formTags}
                         placeholder="Tags"
                         {...register(`tags.${index}`, {
-                          required: "tags must be required",
+                          required: 'tags must be required',
                         })}
                         aria-invalid={errors.tags?.[index] ? true : false}
                       ></input>
-                      <button className={classes.tagsDeleteBtn} onClick={() => remove(index)}>Delete</button>
+                      <button
+                        className={classes.tagsDeleteBtn}
+                        onClick={() => remove(index)}
+                      >
+                        Delete
+                      </button>
                     </div>
-                    <span className={classes.errorMessage}>{errors.tags?.[index]?.message}</span>
+                    <span className={classes.errorMessage}>
+                      {errors.tags?.[index]?.message}
+                    </span>
                   </>
-                )
+                );
               })}
             </div>
-            <input type='button' value={'Append'} className={classes.tagsAppendBtn} onClick={() => append('')} />
+            <input
+              type="button"
+              value={'Append'}
+              className={classes.tagsAppendBtn}
+              onClick={() => append('')}
+            />
           </div>
         </div>
       </div>
@@ -187,6 +207,6 @@ export default function CreateNewArticleForm(props: any) {
           className={classes.formSubmitBtn}
         />
       </div>
-    </form >
+    </form>
   );
 }

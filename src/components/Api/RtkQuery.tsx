@@ -15,19 +15,19 @@ export const articleApi = createApi({
           offset: offset,
         },
         headers: {
-          Authorization: `Token ${token}`
-        }
+          Authorization: `Token ${token}`,
+        },
       }),
-      providesTags: result => ['article'],
+      providesTags: (result) => ['article'],
     }),
     getArticle: build.query({
       query: ({ slug, token = null }) => ({
         url: `articles/${slug}`,
         headers: {
           Authorization: `Token ${token}`,
-        }
+        },
       }),
-      providesTags: result => ['article'],
+      providesTags: (result) => ['article'],
     }),
     createArticle: build.mutation({
       query: (data) => ({
@@ -92,9 +92,9 @@ export const articleApi = createApi({
         method: 'GET',
         headers: {
           Authorization: `Token ${token}`,
-        }
+        },
       }),
-      providesTags: result => ['user'],
+      providesTags: (result) => ['user'],
     }),
     registerNewUser: build.mutation({
       query: (body) => ({

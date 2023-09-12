@@ -1,41 +1,46 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useUserLoginMutation } from '../Api/RtkQuery';
 
+import { useUserLoginMutation } from '../Api/RtkQuery';
 import { useAppDispatch, useAppSelector } from '../hooks/reducer';
 import { SET_TOKEN, SET_LOGIN } from '../../ReduxToolkit/reducers/user';
 
 import classes from './LoginForm.module.scss';
 
 type Inputs = {
-  email: string
-  password: string
-}
+  email: string;
+  password: string;
+};
 
 type userLogin = {
   user: {
-    email: string
-    password: string
-  }
-}
+    email: string;
+    password: string;
+  };
+};
 
 export default function LoginForm(props: any) {
-
-  const bigState = useAppSelector(state => state.user);
+  const bigState = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const formTitle = 'SignIn';
-  const { register, handleSubmit, watch, formState: { errors }, } = useForm<Inputs>();
-  const [fetchLogin, { data, isLoading, isError, status, isSuccess }] = useUserLoginMutation();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>();
+  const [fetchLogin, { data, isLoading, isError, status, isSuccess }] =
+    useUserLoginMutation();
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const userData: userLogin = {
       user: {
         email: data.email,
-        password: data.password
-      }
-    }
+        password: data.password,
+      },
+    };
     loginUser(userData);
   };
 
@@ -49,11 +54,10 @@ export default function LoginForm(props: any) {
           dispatch(SET_LOGIN(true));
           setTimeout(() => navigate('/'), 1500);
         }
-      } catch (err) {
-      }
+      } catch (err) {}
     } else {
     }
-  }
+  };
 
   return (
     <form className={classes.Form} onSubmit={handleSubmit(onSubmit)}>
@@ -65,12 +69,12 @@ export default function LoginForm(props: any) {
           <input
             className={classes.formInput}
             placeholder="Email address"
-            {...register("email", {
-              required: "Email Address is required",
+            {...register('email', {
+              required: 'Email Address is required',
               pattern: {
                 value: /\S+@\S+.\S+/,
-                message: "Please enter correct value"
-              }
+                message: 'Please enter correct value',
+              },
             })}
             aria-invalid={errors.email ? true : false}
           ></input>
@@ -84,33 +88,39 @@ export default function LoginForm(props: any) {
             className={classes.formInput}
             placeholder="Password"
             {...register('password', {
-              required: "Password is requires",
+              required: 'Password is requires',
               minLength: {
                 value: 6,
-                message: 'Your password needs to be at least 6 characters'
+                message: 'Your password needs to be at least 6 characters',
               },
               maxLength: {
                 value: 40,
-                message: 'Your password must be 40 characters or less'
-              }
+                message: 'Your password must be 40 characters or less',
+              },
             })}
             aria-invalid={errors.password ? true : false}
           ></input>
-          <span className={classes.errorMessage}>{errors.password?.message}</span>
+          <span className={classes.errorMessage}>
+            {errors.password?.message}
+          </span>
         </div>
       </div>
-      {isError ? <span className={classes.errorMessage}>Email or password is invalid</span> : null}
+      {isError ? (
+        <span className={classes.errorMessage}>
+          Email or password is invalid
+        </span>
+      ) : null}
 
       <div className={classes.formItem}>
-        <button
-          type="submit"
-          className={classes.formSubmitBtn}
-        >
+        <button type="submit" className={classes.formSubmitBtn}>
           Login
         </button>
         <div className={classes.formInfo}>
           Don't have account?{' '}
-          <button className={classes.link} onClick={() => navigate("/sign-up", { replace: true })}>
+          <button
+            className={classes.link}
+            onClick={() => navigate('/sign-up', { replace: true })}
+          >
             Sign Up.
           </button>
         </div>
