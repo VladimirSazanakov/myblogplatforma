@@ -18,8 +18,9 @@ export default function (props: any) {
 
   const token = state.token;
   const { data: dataUser, isError, isLoading } = useGetUserQuery(token);
-  const { data: dataArticle } = useGetArticleQuery(slug);
+  const { data: dataArticle } = useGetArticleQuery({ slug, token });
   const [fetchDeleteArticle] = useDeleteArticleMutation();
+  const navigate = useNavigate();
 
   // const navigate = useNavigate();
 
@@ -29,11 +30,13 @@ export default function (props: any) {
     const userNameLogin = dataUser?.user.username;
     console.log(dataUser);
     console.log(dataArticle);
+    console.log('state isLogin', state.isLogin);
 
     const authorName = dataArticle?.article.author.username;
 
     if (state.isLogin) {
       if (userNameLogin === authorName) {
+        console.log('userNameLogin=aothorName');
         return (
           <div className={style.ArticleButtons}>
             {deleteBtn}
@@ -43,6 +46,7 @@ export default function (props: any) {
       }
 
     } else {
+      console.log('userNameLogin != aothorName');
       return null;
     }
   }
@@ -66,6 +70,7 @@ export default function (props: any) {
         await fetchDeleteArticle(data).unwrap();
         // setSuccessed(true);
         // setTimeout(() => navigate('/sign-in', { replace: true }), 2000);
+        navigate(-1);
       } catch (error: any) {
         console.log(error);
         // showErrors(error.data);

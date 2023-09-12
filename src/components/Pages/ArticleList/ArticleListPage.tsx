@@ -35,6 +35,7 @@ export default function ArticleListPage() {
   const currentPage = state.articleList.currentPage;
   const totalPages = state.articleList.totalPages;
   const offset = state.articleList.offset;
+  const token = state.user.token;
 
   const { setCurrentPage, setTotalPages, setOffset } = articleList.actions;
 
@@ -47,6 +48,7 @@ export default function ArticleListPage() {
   const { data, isError, isLoading } = useGetArticlesQuery({
     limit: limit,
     offset: offset,
+    token: token,
   });
 
   useEffect(() => {
@@ -78,7 +80,7 @@ export default function ArticleListPage() {
     data.articles.map((el: any) => {
       console.log(el);
       keyValue++;
-      if (el) return <ArticleCardList article={el} />;
+      if (el) return <ArticleCardList key={keyValue} article={el} token={token} />;
     });
 
   function onChangePagination(page: number) {

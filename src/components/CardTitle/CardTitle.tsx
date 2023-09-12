@@ -25,14 +25,17 @@ export default function CardTitle(props: any) {
 
 
   const handleHeart = () => {
-    const data = {
-      token: token,
-      slug: slug,
-    }
-    if (liked) {
-      delLike(data);
-    } else {
-      addLike(data);
+    console.log('Heart handle work');
+    if (isLogin) {
+      const data = {
+        token: token,
+        slug: slug,
+      }
+      if (liked) {
+        delLike(data);
+      } else {
+        addLike(data);
+      }
     }
 
     // setLiked((liked: boolean) => !liked);
@@ -68,12 +71,12 @@ export default function CardTitle(props: any) {
             <HeartFilled
               style={{ fontSize: 14, color: 'red' }}
               onClick={() => handleHeart()}
-              disabled={isLogin}
             />
           ) : (
             <HeartOutlined
               style={{ fontSize: 14, color: 'rgba(0,0,0,0.55)' }}
               onClick={() => handleHeart()}
+              disabled={!isLogin}
             />
           )}
           <span className={style.likes}>{likes}</span>

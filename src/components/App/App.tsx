@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, Navigate } from 'react-router-dom';
 
 // import { Alert, Pagination } from 'antd';
 
@@ -24,6 +24,7 @@ import classes from './App.module.scss';
 import ProfilePage from '../Pages/Profile';
 import NewArticlePage from '../Pages/NewArticle';
 import EditArticlePage from '../Pages/EditArticle';
+import { PrivatePages } from '../Pages/PrivatePage';
 
 function App() {
   // const { data = [], isError, isLoading } = useGetArticlesQuery(undefined);
@@ -51,14 +52,17 @@ function App() {
 
       <main className={classes['app-main']}>
         <Routes>
+          <Route element={<PrivatePages />}>
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/new-article" element={<NewArticlePage />} />
+            <Route path="/article/:slug/edit" element={<EditArticlePage />} />
+          </Route>
           <Route path="/" element={<ArticleListPage />} />
           <Route path="/articles" element={<ArticleListPage />} />
           <Route path="/article/:slug" element={<ArticleFullPage />} />
-          <Route path="/article/:slug/edit" element={<EditArticlePage />} />
           <Route path="/sign-in" element={<SignInPage />} />
           <Route path="/sign-up" element={<SignUpPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/new-article" element={<NewArticlePage />} />
+          <Route path='*' element={<Navigate to='/' replace />} />
         </Routes>
       </main>
     </div>

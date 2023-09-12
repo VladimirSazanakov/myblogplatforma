@@ -37,13 +37,13 @@ export default function LoginForm(props: any) {
         password: data.password
       }
     }
-    console.log('data from form', data);
+    // console.log('data from form', data);
 
     loginUser(userData);
   };
 
   const loginUser = async (userData: userLogin) => {
-    console.log('login user start');
+    // console.log('login user start');
     if (userData) {
       try {
         const dataServer = await fetchLogin(userData).unwrap();
@@ -54,21 +54,21 @@ export default function LoginForm(props: any) {
           setTimeout(() => navigate('/'), 1500);
         }
       } catch (err) {
-        console.log(err);
+        // console.log(err);
 
       }
     } else {
-      console.log('no data');
+      // console.log('no data');
     }
-
   }
-  useEffect(() => {
-    console.log('status is', status);
-  }, [status])
 
-  useEffect(() => {
-    console.log('token in state use effect', bigState.token);
-  }, [bigState])
+  // useEffect(() => {
+  //   console.log('status is', status);
+  // }, [status])
+
+  // useEffect(() => {
+  //   console.log('token in state use effect', bigState.token);
+  // }, [bigState])
 
   return (
     <form className={classes.Form} onSubmit={handleSubmit(onSubmit)}>
@@ -125,9 +125,12 @@ export default function LoginForm(props: any) {
         </button>
         <div className={classes.formInfo}>
           Don't have account?{' '}
-          <Link className={classes.link} to="/sign-up">
+          {/* <Link className={classes.link} to="/sign-up">
             Sign Up.
-          </Link>
+          </Link> */}
+          <button className={classes.link} onClick={() => navigate("/sign-up", { replace: true })}>
+            Sign Up.
+          </button>
         </div>
       </div>
     </form>

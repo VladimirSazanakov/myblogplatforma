@@ -8,18 +8,24 @@ export const articleApi = createApi({
   tagTypes: ['user', 'article'],
   endpoints: (build) => ({
     getArticles: build.query({
-      query: ({ limit = 5, offset = 0 }) => ({
+      query: ({ limit = 5, offset = 0, token = null }) => ({
         url: 'articles',
         params: {
           limit: limit,
           offset: offset,
         },
+        headers: {
+          Authorization: `Token ${token}`
+        }
       }),
       providesTags: result => ['article'],
     }),
     getArticle: build.query({
-      query: (slug) => ({
+      query: ({ slug, token = null }) => ({
         url: `articles/${slug}`,
+        headers: {
+          Authorization: `Token ${token}`,
+        }
       }),
       providesTags: result => ['article'],
     }),

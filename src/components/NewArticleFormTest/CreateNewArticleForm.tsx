@@ -33,6 +33,7 @@ export default function CreateNewArticleForm(props: any) {
   const article = props.article;
   const fetchToServer = props.fetchFunc;
   const slug = props.slug;
+  const navigate = useNavigate();
 
   console.log(article);
 
@@ -60,7 +61,6 @@ export default function CreateNewArticleForm(props: any) {
     }
   })
 
-  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log(data);
@@ -86,7 +86,8 @@ export default function CreateNewArticleForm(props: any) {
       try {
         await fetchToServer(data).unwrap();
         setSuccessed(true);
-        // setTimeout(() => navigate('/sign-in', { replace: true }), 2000);
+        setTimeout(() => navigate(-1), 2000);
+
       } catch (error: any) {
         showErrors(error.data);
       }

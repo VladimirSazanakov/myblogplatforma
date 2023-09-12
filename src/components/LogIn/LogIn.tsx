@@ -17,6 +17,8 @@ export default function (props: any) {
   const token = state.token;
   const { data, isError, isLoading } = useGetUserQuery(token);
   const navigate = useNavigate();
+  const loginInfo = {};
+  const user = data ? data.user.username : ' ';
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
@@ -32,9 +34,8 @@ export default function (props: any) {
 
 
   // const [logined, setLogined] = useState(false);
-  const loginInfo = {};
   // const user = 'John Dear';
-  const user = data ? data.user.username : ' ';
+  // const navigate = useNavigate();
 
   // const avatarImg = data ? data.user.img ? data.user.img : avatarImgDefault : avatarImgDefault;
 
@@ -45,16 +46,19 @@ export default function (props: any) {
   const signIn = (
     <Link
       to="/sign-in"
-      onClick={() => handleSignIn()}
+      replace={true}
+      // onClick={() => handleSignIn()}
       className={style.LogIn_items}
     >
       Sign In
     </Link>
+
   );
   const singUp = (
     <Link
       to="/sign-up"
-      onClick={() => handleSignUp()}
+      replace={true}
+      // onClick={() => handleSignUp()}
       className={style.LogIn_items}
     >
       Sign Up
@@ -67,9 +71,11 @@ export default function (props: any) {
   );
   const avatar = <Avatar src={avatarImg} size={46} />;
   const userName = <span className={style.user_name}>{user}</span>;
+
   const createAticle = (
     <Link
       to="/new-article"
+      replace={true}
       // onClick={() => handleCrateAticle()}
       className={style.createAticle}
     >
@@ -78,16 +84,17 @@ export default function (props: any) {
   );
 
   const handleSignIn = () => {
+    // navigate('/sign-in', { replace: true })
     // setLogined(true);
-    console.log(logined);
+    // console.log(logined);
   };
 
   const handleSignUp = () => { };
 
   const handleLogOut = () => {
     // setLogined(false);
-    console.log(logined);
-    console.log(state);
+    // console.log(logined);
+    // console.log(state);
     dispatch(LOG_OUT());
     localStorage.clear();
     // dispatch(SET_LOGIN(false));
@@ -98,8 +105,8 @@ export default function (props: any) {
 
   const AuthClick = () => {
     // const { data, isError, isLoading } = useGetUserQuery(token);
-    console.log('repit send token');
-    console.log(data);
+    // console.log('repit send token');
+    // console.log(data);
 
   }
 

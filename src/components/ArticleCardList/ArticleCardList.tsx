@@ -29,8 +29,10 @@ export default function ArticleCardList(props: any) {
 
   const buttons = (slug: string) => {
     if (!full) {
+      console.log('buttons is Notfull')
       return null;
     } else {
+      console.log('buttons is Full control resived to <ArticleButtons>');
       return <ArticleButtons slug={slug} />
     }
   }

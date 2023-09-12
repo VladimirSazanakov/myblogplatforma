@@ -13,10 +13,13 @@ import ApiBlog from '../../../service/ApiBlog';
 import { useGetArticleQuery } from '../../Api/RtkQuery';
 
 import classes from './ArticleFullPage.module.scss';
+import { useAppSelector } from '../../hooks/reducer';
 
 export default function ArticleFullPage(props: any) {
+  const state = useAppSelector(state => state.user)
+  const token = state.token;
   const { slug } = useParams();
-  const { data, isError, isLoading } = useGetArticleQuery(slug);
+  const { data, isError, isLoading } = useGetArticleQuery({ slug, token });
 
   //const [article, setArticle] = useState();
   const apiBlog = new ApiBlog();
