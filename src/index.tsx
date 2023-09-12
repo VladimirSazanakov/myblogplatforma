@@ -3,12 +3,9 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
-// import { setupStore } from './ReduxToolkit/store';
 import './index.css';
 import App from './components/App';
 import { setupStore } from './ReduxToolkit/store';
-
-// const store = setupStore();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

@@ -24,8 +24,6 @@
 
 .formTitle {
   @include FormTitle20;
-  // display: flex;
-  // justify-content: center;
   color: $grey-grey-9;
   text-align: center;
 }
@@ -59,12 +57,10 @@
   border-radius: 4px;
   border: 1px solid $grey-grey-5;
   padding-left: 12px;
-  // margin-bottom: 12px;
 }
 
 .formInput[aria-invalid='true'] {
   border: 2px solid $formAlarm-color;
-  // box-shadow: 0 0 2px 4px $formAlarm-color;
 }
 
 .errorMessage {
@@ -120,9 +116,6 @@
   align-items: center;
   display: inline-block;
   margin-right: 8px;
-  // font-size: 18px;
-  // height: 16px;
-  // width: 16px;
 }
 
 .successed {

@@ -6,17 +6,15 @@ import Tags from '../Tags';
 import ArticleDescrip from '../ArticleDescrip';
 import AuthorInfo from '../AuthorInfo';
 import ArticleFullText from '../ArticleFullText';
+import ArticleButtons from '../ArticleButtons';
+
 import { article } from '../../types/types';
 
 import style from './ArticleCardList.module.scss';
-import ArticleButtons from '../ArticleButtons';
 
 export default function ArticleCardList(props: any) {
   const full = props.full;
   const article = props.article;
-
-  // console.log(article);
-
   const title = article.title;
   const tags = article.tagList;
   const description = article.description;
@@ -29,10 +27,8 @@ export default function ArticleCardList(props: any) {
 
   const buttons = (slug: string) => {
     if (!full) {
-      console.log('buttons is Notfull')
       return null;
     } else {
-      console.log('buttons is Full control resived to <ArticleButtons>');
       return <ArticleButtons slug={slug} />
     }
   }
@@ -46,7 +42,6 @@ export default function ArticleCardList(props: any) {
           <ArticleDescrip description={description} />
         </Space>
         <Space size={30} direction='vertical' align='end'>
-
           <AuthorInfo author={author} date={createdDate} />
           {buttons(slug)}
         </Space>

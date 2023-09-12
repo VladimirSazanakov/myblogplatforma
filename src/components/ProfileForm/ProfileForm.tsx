@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Checkbox } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { useGetUserQuery, useUpdateUserMutation } from '../Api/RtkQuery';
 
@@ -135,7 +134,6 @@ export default function ProfileForm(props: any) {
             className={classes.formInput}
             placeholder="Username"
             {...register('username', {
-              // value: userName,
               required: 'Username is required',
               minLength: {
                 value: 3,

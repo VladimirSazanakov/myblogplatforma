@@ -1,42 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import { Avatar, Button, Popconfirm } from 'antd';
+import React from 'react';
+import { Popconfirm } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../hooks/reducer';
+import { useAppSelector } from '../hooks/reducer';
 import { useGetUserQuery, useGetArticleQuery, useDeleteArticleMutation } from '../Api/RtkQuery';
-import { LOG_OUT, SET_LOGIN, SET_TOKEN } from '../../ReduxToolkit/reducers/user';
-
-import avatarImgDefault from '../../img/userIcon.png';
 
 import style from './ArticleButtons.module.scss';
+
+interface dataForArticle {
+  slug: string;
+  token?: string
+}
 
 export default function (props: any) {
 
   const state = useAppSelector(state => state.user);
   const slug = props.slug;
-  // const dispatch = useAppDispatch();
-  // const logined = state.isLogin;
-
   const token = state.token;
-  const { data: dataUser, isError, isLoading } = useGetUserQuery(token);
+  const { data: dataUser } = useGetUserQuery(token);
   const { data: dataArticle } = useGetArticleQuery({ slug, token });
-  const [fetchDeleteArticle] = useDeleteArticleMutation();
+  const [fetchDeleteArticle, { isError }] = useDeleteArticleMutation();
   const navigate = useNavigate();
 
-  // const navigate = useNavigate();
-
-
   const showButtons = () => {
-
     const userNameLogin = dataUser?.user.username;
-    console.log(dataUser);
-    console.log(dataArticle);
-    console.log('state isLogin', state.isLogin);
-
     const authorName = dataArticle?.article.author.username;
 
     if (state.isLogin) {
       if (userNameLogin === authorName) {
-        console.log('userNameLogin=aothorName');
         return (
           <div className={style.ArticleButtons}>
             {deleteBtn}
@@ -44,36 +34,25 @@ export default function (props: any) {
           </div>
         )
       }
-
     } else {
-      console.log('userNameLogin != aothorName');
       return null;
     }
   }
 
-
-
   const handleDeleteBtn = () => {
-    // setLogined(true);
-    console.log('Delete', slug);
-    const data = {
+    const data: dataForArticle = {
       token: token,
       slug: slug
     }
     deleteArticle(data);
-    // setTimeout(na)
   };
 
-  const deleteArticle = async (data: any) => {
+  const deleteArticle = async (data: dataForArticle) => {
     if (data) {
       try {
         await fetchDeleteArticle(data).unwrap();
-        // setSuccessed(true);
-        // setTimeout(() => navigate('/sign-in', { replace: true }), 2000);
         navigate(-1);
       } catch (error: any) {
-        console.log(error);
-        // showErrors(error.data);
       }
     }
   }
@@ -86,23 +65,19 @@ export default function (props: any) {
   const deleteBtn = (
     <Popconfirm
       title='Are you sure to delete this article?'
-      // description='Are you sure to delete this article?'
       onConfirm={confirm}
       onCancel={cancel}
       okText="Yes"
       cancelText='No'
       placement='right' >
 
-
       <button
-        // onClick={() => handleDeleteBtn()}
         className={style.delete}
       >
         Delete
       </button>
     </Popconfirm>
   );
-
 
   const editBtn = (
     <Link
@@ -113,13 +88,10 @@ export default function (props: any) {
     </Link>
   );
 
-  const handleSignUp = () => { };
-
-
-  const handleCrateAticle = () => { };
-
-
   return (
-    showButtons()
+    <>
+      {showButtons()}
+      {isError ? <span className={style.errorMessage}>Error Delete Article</span> : null}
+    </>
   );
 }

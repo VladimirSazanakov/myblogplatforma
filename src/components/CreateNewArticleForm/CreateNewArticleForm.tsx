@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Checkbox, Space } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
-import { useForm, SubmitHandler, Controller, useFieldArray } from 'react-hook-form';
+// import { Checkbox, Space } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { useForm, SubmitHandler, useFieldArray } from 'react-hook-form';
 import { useCreateArticleMutation } from '../Api/RtkQuery';
 
 
@@ -32,6 +32,7 @@ export default function CreateNewArticleForm(props: any) {
 
   const [successed, setSuccessed] = useState(false);
   const state = useAppSelector(state => state.user);
+  const navigate = useNavigate();
 
   const [fetchCreateArticle, { data, isLoading, isError }] = useCreateArticleMutation();
   const { register, handleSubmit, formState: { errors }, getValues, control, setError } = useForm<Inputs>({ defaultValues: { tags: [''] } });
@@ -44,11 +45,7 @@ export default function CreateNewArticleForm(props: any) {
     }
   })
 
-  const navigate = useNavigate();
-
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
-
     const newArticle = {
       token: state.token,
       body: {
@@ -60,7 +57,6 @@ export default function CreateNewArticleForm(props: any) {
         }
       }
     }
-    console.log(newArticle);
     fetchNewArticle(newArticle);
   }
 
@@ -69,7 +65,7 @@ export default function CreateNewArticleForm(props: any) {
       try {
         await fetchCreateArticle(data).unwrap();
         setSuccessed(true);
-        // setTimeout(() => navigate('/sign-in', { replace: true }), 2000);
+        setTimeout(() => navigate('-1', { replace: true }), 2000);
       } catch (error: any) {
         showErrors(error.data);
       }
@@ -77,43 +73,33 @@ export default function CreateNewArticleForm(props: any) {
   }
 
   const showErrors = (errData: any) => {
-    console.log(errData);
-    // const errItems = errData.errors;
-    // const errKeys = Object.keys(errItems);
+    // console.log(errData);
+    const errItems = errData.errors;
+    const errKeys = Object.keys(errItems);
     // console.log(errKeys);
-    // errKeys.forEach((el: string, index: number) => {
-    //   switch (el) {
-    //     case 'username': {
-    //       setError('username', { message: el + ' ' + errItems[el] });
-    //       break;
-    //     }
-    //     case 'email': {
-    //       setError('email', { message: el + ' ' + errItems[el] });
-    //       break;
-    //     }
-
-    //     case 'password': {
-    //       setError('password', { message: el + ' ' + errItems[el] });
-    //       break;
-    //     }
-    //     default: break;
-    //   }
-    // });
+    errKeys.forEach((el: string, index: number) => {
+      switch (el) {
+        case 'title': {
+          setError('title', { message: el + ' ' + errItems[el] });
+          break;
+        }
+        case 'description': {
+          setError('description', { message: el + ' ' + errItems[el] });
+          break;
+        }
+        case 'body': {
+          setError('body', { message: el + ' ' + errItems[el] });
+          break;
+        }
+        default: break;
+      }
+    });
   }
-
-  // function repearPasswordValid(value: any) {
-  //   const { password, repeatPassword } = getValues();
-  //   if (password != value) {
-  //     return 'Password must be match';
-  //   }
-  // }
 
   return (
     <form className={classes.Form} onSubmit={handleSubmit(onSubmit)}>
       <div className={classes.formTitle}>{formTitle}</div>
-
       <div className={classes.formItem}>
-
         <div className={classes.itemContainer}>
           <label className={classes.formLabel}>Title</label>
           <input
@@ -149,7 +135,6 @@ export default function CreateNewArticleForm(props: any) {
         <div className={classes.itemContainer}>
           <label className={classes.formLabel}>Text</label>
           <textarea
-            // type="aria"
             className={classes.formAria}
             placeholder="Text"
             {...register('body', {
@@ -201,7 +186,6 @@ export default function CreateNewArticleForm(props: any) {
           type="submit"
           className={classes.formSubmitBtn}
         />
-
       </div>
     </form >
   );

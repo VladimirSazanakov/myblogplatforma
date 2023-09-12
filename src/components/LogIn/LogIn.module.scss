@@ -22,9 +22,6 @@
   margin-left: 19px;
   transition: all 1s;
   word-wrap: none;
-
-  // background: none;
-  // border: none;
 }
 
 a.LogIn_items:hover {
@@ -90,7 +87,6 @@ a.LogIn_items:hover {
   width: auto;
   padding: 5px 10px;
   margin-left: 27px;
-  // transition: all 1s;
   box-shadow: inset 0 0 0 1px $header-hover-color;
   color: $header-hover-color;
   border-radius: 5px;

@@ -24,7 +24,7 @@ type userDataApi = {
 export default function CreateNewAccForm(props: any) {
   const formTitle = 'Create new account';
   const [successed, setSuccessed] = useState(false);
-  const [fetchCreateUser, { data, isLoading, isError }] = useRegisterNewUserMutation();
+  const [fetchCreateUser] = useRegisterNewUserMutation();
   const { register, handleSubmit, formState: { errors }, getValues, control, setError } = useForm<Inputs>();
   const navigate = useNavigate();
 
@@ -65,7 +65,6 @@ export default function CreateNewAccForm(props: any) {
           setError('email', { message: el + ' ' + errItems[el] });
           break;
         }
-
         case 'password': {
           setError('password', { message: el + ' ' + errItems[el] });
           break;
@@ -76,7 +75,7 @@ export default function CreateNewAccForm(props: any) {
   }
 
   function repearPasswordValid(value: any) {
-    const { password, repeatPassword } = getValues();
+    const { password } = getValues();
     if (password != value) {
       return 'Password must be match';
     }
