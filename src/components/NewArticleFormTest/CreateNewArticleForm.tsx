@@ -2,11 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler, useFieldArray } from 'react-hook-form';
 
-// import {
-//   useCreateArticleMutation,
-//   useUpdateArticleMutation,
-// } from '../Api/RtkQuery';
-
 import { useAppSelector } from '../hooks/reducer';
 
 import classes from './CreateNewArticleForm.module.scss';
@@ -21,14 +16,6 @@ type FormValues = {
 type TObjTags = {
   value: string;
 };
-
-// type userDataApi = {
-//   user: {
-//     username: string;
-//     email: string;
-//     password: string;
-//   };
-// };
 
 interface TNewArticle {
   title: string;
@@ -55,8 +42,6 @@ const objToArr = (arrObj: TObjTags[] | undefined) => {
 };
 
 export default function CreateNewArticleForm(props: TNewArticleFormProps) {
-  // return <span>NewArticleForm Test</span>
-
   let formTitle = 'Create new article';
 
   if (props.mode === 'edit') {
@@ -74,9 +59,7 @@ export default function CreateNewArticleForm(props: TNewArticleFormProps) {
     register,
     handleSubmit,
     formState: { errors },
-    // getValues,
     control,
-    // setError,
   } = useForm<FormValues>({
     defaultValues: {
       title: article.title,
@@ -164,7 +147,6 @@ export default function CreateNewArticleForm(props: TNewArticleFormProps) {
         <div className={classes.itemContainer}>
           <label className={classes.formLabel}>Text</label>
           <textarea
-            // type="aria"
             className={classes.formAria}
             placeholder="Text"
             {...register('body', {

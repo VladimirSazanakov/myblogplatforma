@@ -27,15 +27,6 @@ interface TRawData {
   };
 }
 
-// type userDataApi = {
-//   user: {
-//     username: string;
-//     email: string;
-//     password: string;
-//     image?: string;
-//   };
-// };
-
 export default function ProfileForm() {
   const state = useAppSelector((state) => state.user);
   const token = state.token;
@@ -50,8 +41,6 @@ export default function ProfileForm() {
     register,
     handleSubmit,
     formState: { errors },
-    // getValues,
-    // control,
     setError,
     setValue,
   } = useForm<Inputs>();
@@ -59,7 +48,6 @@ export default function ProfileForm() {
 
   const userName = data ? data.user.username : '';
   const email = data ? data.user.email : '';
-  // const image = data ? data.user.image : '';
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const rawData = {
@@ -73,7 +61,6 @@ export default function ProfileForm() {
         },
       },
     };
-    console.log('rawData', rawData);
     fetchUpdateUser(rawData);
   };
 
@@ -88,21 +75,17 @@ export default function ProfileForm() {
     if (rawData) {
       try {
         const data = await updateUser(rawData).unwrap();
-        console.log(data);
         setSuccessed(true);
         setTimeout(() => navigate(-1), 2000);
       } catch (error: any) {
-        console.log(error);
         showErrors(error.data);
       }
     }
   };
 
   const showErrors = (errData: any) => {
-    console.log('Errors fromn show Error', errData);
     const errItems = errData.errors;
     const errKeys = Object.keys(errItems);
-    console.log(errKeys);
 
     errKeys.forEach((el: string) => {
       switch (el) {
@@ -114,7 +97,6 @@ export default function ProfileForm() {
           setError('email', { message: el + ' ' + errItems[el] });
           break;
         }
-
         case 'password': {
           setError('password', { message: el + ' ' + errItems[el] });
           break;

@@ -7,7 +7,7 @@ import { useAppSelector } from '../../hooks/reducer';
 
 import classes from './ArticleFullPage.module.scss';
 
-export default function ArticleFullPage(props: any) {
+export default function ArticleFullPage() {
   const state = useAppSelector((state) => state.user);
   const token = state.token;
   const { slug } = useParams();

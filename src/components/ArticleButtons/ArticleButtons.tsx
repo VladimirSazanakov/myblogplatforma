@@ -67,13 +67,11 @@ export default function ArticleButtons(props: ArticleButtonsI) {
   const confirm = (e?: React.MouseEvent<HTMLElement>) => {
     handleDeleteBtn();
   };
-  // const cancel = (e?: React.MouseEvent<HTMLElement>) => { };
 
   const deleteBtn = (
     <Popconfirm
       title="Are you sure to delete this article?"
       onConfirm={confirm}
-      // onCancel={cancel}
       okText="Yes"
       cancelText="No"
       placement="right"

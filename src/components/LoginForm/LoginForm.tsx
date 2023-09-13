@@ -21,13 +21,11 @@ type userLogin = {
 };
 
 export default function LoginForm() {
-  // const bigState = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const formTitle = 'SignIn';
   const {
     register,
     handleSubmit,
-    // watch,
     formState: { errors },
   } = useForm<Inputs>();
   const [fetchLogin, { isError }] = useUserLoginMutation();

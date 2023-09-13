@@ -83,7 +83,7 @@ export default function CreateNewAccForm() {
     });
   };
 
-  function repearPasswordValid(value: any) {
+  function repearPasswordValid(value: string) {
     const { password } = getValues();
     if (password !== value) {
       return 'Password must be match';
