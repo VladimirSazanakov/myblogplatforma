@@ -11,11 +11,15 @@ import { useAppSelector } from '../hooks/reducer';
 
 import classes from './CreateNewArticleForm.module.scss';
 
-type Inputs = {
+type FormValues = {
   title: string;
   description: string;
   body: string;
-  tags: string[];
+  tags?: TObjTags[];
+};
+
+type TObjTags = {
+  value: string;
 };
 
 // type userDataApi = {
@@ -36,9 +40,20 @@ interface TNewArticle {
 interface TNewArticleFormProps {
   mode?: string;
   article: TNewArticle;
-  fetchFunc: Function;
+  fetchFunc: any;
   slug?: string;
 }
+
+const arrToObj = (arr: string[]) => {
+  return arr.map((el: string) => {
+    return { value: el };
+  });
+};
+
+const objToArr = (arrObj: TObjTags[] | undefined) => {
+  return arrObj ? arrObj.map((el) => el.value) : [];
+};
+
 export default function CreateNewArticleForm(props: TNewArticleFormProps) {
   // return <span>NewArticleForm Test</span>
 
@@ -62,26 +77,24 @@ export default function CreateNewArticleForm(props: TNewArticleFormProps) {
     // getValues,
     control,
     // setError,
-  } = useForm<Inputs>({
+  } = useForm<FormValues>({
     defaultValues: {
       title: article.title,
       description: article.description,
       body: article.body,
-      tags: article.tagList,
+      tags: arrToObj(article.tagList),
     },
   });
 
   const { fields, append, remove } = useFieldArray({
-    name: 'tags',
     control,
+    name: 'tags',
     rules: {
       required: false,
     },
   });
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
-
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
     const newArticle = {
       token: state.token,
       slug: slug,
@@ -90,7 +103,7 @@ export default function CreateNewArticleForm(props: TNewArticleFormProps) {
           title: data.title,
           description: data.description,
           body: data.body,
-          tagList: data.tags,
+          tagList: objToArr(data.tags),
         },
       },
     };
@@ -177,7 +190,7 @@ export default function CreateNewArticleForm(props: TNewArticleFormProps) {
                         type="text"
                         className={classes.formTags}
                         placeholder="Tags"
-                        {...register(`tags.${index}`, {
+                        {...register(`tags.${index}.value` as const, {
                           required: 'tags must be required',
                         })}
                         aria-invalid={errors.tags?.[index] ? true : false}
@@ -190,7 +203,7 @@ export default function CreateNewArticleForm(props: TNewArticleFormProps) {
                       </button>
                     </div>
                     <span className={classes.errorMessage}>
-                      {errors.tags?.[index]?.message}
+                      {errors.tags?.[index]?.value?.message}
                     </span>
                   </>
                 );
@@ -200,7 +213,7 @@ export default function CreateNewArticleForm(props: TNewArticleFormProps) {
               type="button"
               value={'Append'}
               className={classes.tagsAppendBtn}
-              onClick={() => append('')}
+              onClick={() => append({ value: '' })}
             />
           </div>
         </div>
