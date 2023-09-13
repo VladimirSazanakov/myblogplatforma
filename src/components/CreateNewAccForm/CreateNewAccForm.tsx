@@ -12,7 +12,7 @@ type Inputs = {
   email: string;
   password: string;
   repeatPassword: string;
-  agree: any;
+  agree: boolean;
 };
 
 type userDataApi = {
@@ -22,7 +22,7 @@ type userDataApi = {
     password: string;
   };
 };
-export default function CreateNewAccForm(props: any) {
+export default function CreateNewAccForm() {
   const formTitle = 'Create new account';
   const [successed, setSuccessed] = useState(false);
   const [fetchCreateUser] = useRegisterNewUserMutation();
@@ -85,7 +85,7 @@ export default function CreateNewAccForm(props: any) {
 
   function repearPasswordValid(value: any) {
     const { password } = getValues();
-    if (password != value) {
+    if (password !== value) {
       return 'Password must be match';
     }
   }
@@ -205,7 +205,7 @@ export default function CreateNewAccForm(props: any) {
           className={classes.formSubmitBtn}
         />
         <div className={classes.formInfo}>
-          Don't have account?{' '}
+          Don\&apost have account?{' '}
           <Link className={classes.link} to="/sign-in">
             Sign In.
           </Link>

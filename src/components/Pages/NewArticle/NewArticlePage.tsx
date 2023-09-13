@@ -16,11 +16,11 @@ export default function NewArticlePage() {
 
   return (
     <div className={classes.SignUpPage}>
-      <CreateNewArticleForm
+      {/* <CreateNewArticleForm
         mode="create"
         article={newArticle}
         fetchFunc={fetchCreateArticle}
-      />
+      /> */}
     </div>
   );
 }

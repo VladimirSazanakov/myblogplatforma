@@ -13,7 +13,7 @@ import avatarImgDefault from '../../img/userIcon.png';
 
 import style from './LogIn.module.scss';
 
-export default function (props: any) {
+export default function LogIn() {
   const state = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const logined = state.isLogin;

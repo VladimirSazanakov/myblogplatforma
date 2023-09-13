@@ -15,8 +15,11 @@ interface dataForArticle {
   slug: string;
   token?: string;
 }
+interface ArticleButtonsI {
+  slug: string;
+}
 
-export default function (props: any) {
+export default function ArticleButtons(props: ArticleButtonsI) {
   const state = useAppSelector((state) => state.user);
   const slug = props.slug;
   const token = state.token;
@@ -56,19 +59,21 @@ export default function (props: any) {
       try {
         await fetchDeleteArticle(data).unwrap();
         navigate(-1);
-      } catch (error: any) {}
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
   const confirm = (e?: React.MouseEvent<HTMLElement>) => {
     handleDeleteBtn();
   };
-  const cancel = (e?: React.MouseEvent<HTMLElement>) => {};
+  // const cancel = (e?: React.MouseEvent<HTMLElement>) => { };
 
   const deleteBtn = (
     <Popconfirm
       title="Are you sure to delete this article?"
       onConfirm={confirm}
-      onCancel={cancel}
+      // onCancel={cancel}
       okText="Yes"
       cancelText="No"
       placement="right"

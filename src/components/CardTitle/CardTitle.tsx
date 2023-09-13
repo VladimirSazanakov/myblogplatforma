@@ -3,6 +3,7 @@ import { HeartFilled, HeartOutlined } from '@ant-design/icons';
 import { Space } from 'antd';
 import { Link } from 'react-router-dom';
 
+import { TCardTitleProps, TfetchData } from '../../types/types';
 import { useAppSelector } from '../hooks/reducer';
 import {
   useAddLikeArticleMutation,
@@ -11,11 +12,11 @@ import {
 
 import style from './CardTitle.module.scss';
 
-export default function CardTitle(props: any) {
+export default function CardTitle(props: TCardTitleProps) {
   const title = props.title;
   const slug = props.slug;
   const liked = props.favorited;
-  const likes = props.likes;
+  const likes = props.favoritedCount;
   const state = useAppSelector((state) => state.user);
   const isLogin = state.isLogin;
   const token = state.token;
@@ -37,16 +38,20 @@ export default function CardTitle(props: any) {
     }
   };
 
-  const addLike = async (data: any) => {
+  const addLike = async (data: TfetchData) => {
     try {
-      const res = await fetchAddLike(data);
-    } catch (error) {}
+      await fetchAddLike(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const delLike = async (data: any) => {
+  const delLike = async (data: TfetchData) => {
     try {
-      const res = await fetchDelLike(data);
-    } catch (error) {}
+      await fetchDelLike(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

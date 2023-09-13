@@ -7,7 +7,7 @@ import ArticleDescrip from '../ArticleDescrip';
 import AuthorInfo from '../AuthorInfo';
 import ArticleFullText from '../ArticleFullText';
 import ArticleButtons from '../ArticleButtons';
-import { article } from '../../types/types';
+import { ArticleCardListProps } from '../../types/types';
 
 import style from './ArticleCardList.module.scss';
 
@@ -24,6 +24,8 @@ export default function ArticleCardList(props: any) {
   const likesCount = article.favoritesCount;
   const favorited = article.favorited;
 
+  console.log(tags);
+
   const buttons = (slug: string) => {
     if (!full) {
       return null;
@@ -39,7 +41,7 @@ export default function ArticleCardList(props: any) {
           <CardTitle
             title={title}
             slug={slug}
-            likes={likesCount}
+            favoritedCount={likesCount}
             favorited={favorited}
           />
           <Tags tags={tags} />

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { userActions } from '../../types/types';
 
-interface user {
+interface userInterface {
   isLogin: boolean;
   isLoading: boolean;
   isError: boolean;
@@ -13,7 +13,7 @@ interface user {
   image: string;
 }
 
-const initialState: user = {
+const initialState: userInterface = {
   isLogin: false,
   isLoading: false,
   isError: false,
@@ -54,7 +54,6 @@ export const user = createSlice({
     },
     [userActions.logOut]() {
       return initialState;
-      console.log('logout in state');
     },
   },
 });

@@ -4,7 +4,11 @@ import remarkGfm from 'remark-gfm';
 
 import style from './ArticleFullText.module.scss';
 
-export default function ArticleCardText(props: any) {
+interface cardTextProps {
+  text: string;
+}
+
+export default function ArticleCardText(props: cardTextProps) {
   const textValue = props.text;
 
   return (

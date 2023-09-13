@@ -1,6 +1,6 @@
 export type tag = string;
 
-export type tags = tag[];
+export type tagList = tag[];
 
 export interface author {
   username: string;
@@ -14,7 +14,7 @@ export interface article {
   title: string;
   description: string;
   body: string;
-  tags: tags;
+  tagList: tagList;
   createdAt: string;
   updatedAt: string;
   favorited: boolean;
@@ -38,6 +38,24 @@ export interface FilterState {
 export interface Action {
   type: string;
   payload?: any;
+}
+
+export interface TfetchData {
+  slug: string;
+  token: string;
+}
+
+export interface TCardTitleProps {
+  title: string;
+  slug: string;
+  favorited: boolean;
+  favoritedCount: number;
+}
+
+export interface ArticleCardListProps {
+  full?: boolean;
+  article: article;
+  token?: string;
 }
 
 export enum userActions {

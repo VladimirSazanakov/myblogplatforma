@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Avatar, Space } from 'antd';
 import { format } from 'date-fns';
 
-import avatarImg from '../../img/userIcon.png';
 import { author } from '../../types/types';
 
 import style from './AuthorInfo.module.scss';
+
+interface TAuthorInfoProps {
+  author: author;
+  date: any;
+}
 
 export default function AuthorInfo(props: any) {
   const AuthorInfo: author = props.author;
