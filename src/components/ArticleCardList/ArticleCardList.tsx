@@ -11,20 +11,18 @@ import { ArticleCardListProps } from '../../types/types';
 
 import style from './ArticleCardList.module.scss';
 
-export default function ArticleCardList(props: any) {
-  const full = props.full;
-  const article = props.article;
-  const title = article.title;
+export default function ArticleCardList(props: ArticleCardListProps) {
+  const { full, article } = props;
+  // const article = props.article;
+  const { title, description, author, slug, favorited } = article;
   const tags = article.tagList;
-  const description = article.description;
-  const author = article.author;
-  const slug = article.slug;
+  // const description = article.description;
+  // const author = article.author;
+  // const slug = article.slug;
   const text = article.body;
   const createdDate = article.createdAt;
   const likesCount = article.favoritesCount;
-  const favorited = article.favorited;
-
-  console.log(tags);
+  // const favorited = article.favorited;
 
   const buttons = (slug: string) => {
     if (!full) {

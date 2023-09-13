@@ -12,15 +12,16 @@ export default function NewArticlePage() {
     description: '',
     tagList: [],
   };
+
   const [fetchCreateArticle] = useCreateArticleMutation();
 
   return (
     <div className={classes.SignUpPage}>
-      {/* <CreateNewArticleForm
+      <CreateNewArticleForm
         mode="create"
         article={newArticle}
         fetchFunc={fetchCreateArticle}
-      /> */}
+      />
     </div>
   );
 }

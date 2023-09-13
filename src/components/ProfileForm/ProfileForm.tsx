@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
 import { useGetUserQuery, useUpdateUserMutation } from '../Api/RtkQuery';
 import { useAppSelector } from '../hooks/reducer';
@@ -15,30 +15,43 @@ type Inputs = {
   agree: any;
 };
 
-type userDataApi = {
-  user: {
-    username: string;
-    email: string;
-    password: string;
-    image?: string;
+interface TRawData {
+  token: string;
+  body: {
+    user: {
+      username: string;
+      email: string;
+      password: string;
+      image: string;
+    };
   };
-};
-export default function ProfileForm(props: any) {
+}
+
+// type userDataApi = {
+//   user: {
+//     username: string;
+//     email: string;
+//     password: string;
+//     image?: string;
+//   };
+// };
+
+export default function ProfileForm() {
   const state = useAppSelector((state) => state.user);
   const token = state.token;
 
   const formTitle = 'Edit Profile';
   const [successed, setSuccessed] = useState(false);
 
-  const [updateUser, { isError: isErrorUpdate }] = useUpdateUserMutation();
-  const { data, isError, isLoading } = useGetUserQuery(token);
+  const [updateUser] = useUpdateUserMutation();
+  const { data } = useGetUserQuery(token);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    getValues,
-    control,
+    // getValues,
+    // control,
     setError,
     setValue,
   } = useForm<Inputs>();
@@ -46,7 +59,7 @@ export default function ProfileForm(props: any) {
 
   const userName = data ? data.user.username : '';
   const email = data ? data.user.email : '';
-  const image = data ? data.user.image : '';
+  // const image = data ? data.user.image : '';
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const rawData = {
@@ -71,7 +84,7 @@ export default function ProfileForm(props: any) {
     setValue('email', email);
   }, [data]);
 
-  const fetchUpdateUser = async (rawData: any) => {
+  const fetchUpdateUser = async (rawData: TRawData) => {
     if (rawData) {
       try {
         const data = await updateUser(rawData).unwrap();
@@ -91,7 +104,7 @@ export default function ProfileForm(props: any) {
     const errKeys = Object.keys(errItems);
     console.log(errKeys);
 
-    errKeys.forEach((el: string, index: number) => {
+    errKeys.forEach((el: string) => {
       switch (el) {
         case 'username': {
           setError('username', { message: el + ' ' + errItems[el] });
@@ -114,7 +127,7 @@ export default function ProfileForm(props: any) {
 
   const [errImage, setErrImage] = useState(false);
 
-  function avatarImageValid(value: any) {
+  function avatarImageValid(value: string) {
     if (value === '') return;
     const image = new Image();
     image.src = value;

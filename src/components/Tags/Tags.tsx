@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Space } from 'antd';
+
+import { tagList } from '../../types/types';
 
 import style from './Tags.module.scss';
 
-export default function Tags(props: any) {
+interface TTagsProp {
+  tags: tagList;
+}
+
+export default function Tags(props: TTagsProp) {
   const tagsValue = props.tags;
 
   let key = 0;

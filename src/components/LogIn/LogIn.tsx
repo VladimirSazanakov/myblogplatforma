@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Avatar } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../hooks/reducer';
 import { useGetUserQuery } from '../Api/RtkQuery';
@@ -18,7 +18,7 @@ export default function LogIn() {
   const dispatch = useAppDispatch();
   const logined = state.isLogin;
   const token = state.token;
-  const { data, isError, isLoading } = useGetUserQuery(token);
+  const { data } = useGetUserQuery(token);
   const user = data ? data.user.username : ' ';
   const avatarImg = data?.user.image || avatarImgDefault;
   const avatar = <Avatar src={avatarImg} size={46} />;
@@ -42,9 +42,9 @@ export default function LogIn() {
     </Link>
   );
   const logOut = (
-    <a href="#" onClick={() => handleLogOut()} className={style.LogIn_logOut}>
+    <Link to="" onClick={() => handleLogOut()} className={style.LogIn_logOut}>
       Log Out
-    </a>
+    </Link>
   );
 
   const createAticle = (

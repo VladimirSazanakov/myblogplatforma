@@ -14,7 +14,7 @@ export default function EditArticlePage() {
   const { slug } = useParams();
   const state = useAppSelector((state) => state.user);
   const token = state.token;
-  const { data, isError, isLoading } = useGetArticleQuery({ slug, token });
+  const { data } = useGetArticleQuery({ slug, token });
   const [fetchUpdateArticle] = useUpdateArticleMutation();
 
   return (

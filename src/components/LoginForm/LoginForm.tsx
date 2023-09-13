@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 import { useUserLoginMutation } from '../Api/RtkQuery';
-import { useAppDispatch, useAppSelector } from '../hooks/reducer';
+import { useAppDispatch } from '../hooks/reducer';
 import { SET_TOKEN, SET_LOGIN } from '../../ReduxToolkit/reducers/user';
 
 import classes from './LoginForm.module.scss';
@@ -20,18 +20,17 @@ type userLogin = {
   };
 };
 
-export default function LoginForm(props: any) {
-  const bigState = useAppSelector((state) => state.user);
+export default function LoginForm() {
+  // const bigState = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const formTitle = 'SignIn';
   const {
     register,
     handleSubmit,
-    watch,
+    // watch,
     formState: { errors },
   } = useForm<Inputs>();
-  const [fetchLogin, { data, isLoading, isError, status, isSuccess }] =
-    useUserLoginMutation();
+  const [fetchLogin, { isError }] = useUserLoginMutation();
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
@@ -54,8 +53,9 @@ export default function LoginForm(props: any) {
           dispatch(SET_LOGIN(true));
           setTimeout(() => navigate('/'), 1500);
         }
-      } catch (err) {}
-    } else {
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
@@ -116,7 +116,7 @@ export default function LoginForm(props: any) {
           Login
         </button>
         <div className={classes.formInfo}>
-          Don't have account?{' '}
+          Don{'&apos'}t have account?{' '}
           <button
             className={classes.link}
             onClick={() => navigate('/sign-up', { replace: true })}

@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Pagination, Space } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { useGetArticlesQuery } from '../../Api/RtkQuery';
 import ArticleCardList from '../../ArticleCardList';
-import { article } from '../../../types/types';
 import { articleList } from '../../../ReduxToolkit/reducers/articleList';
 import { useAppSelector } from '../../hooks/reducer';
 
@@ -23,7 +22,7 @@ export default function ArticleListPage() {
 
   let keyValue = 0;
 
-  const { data, isError, isLoading } = useGetArticlesQuery({
+  const { data } = useGetArticlesQuery({
     limit: limit,
     offset: offset,
     token: token,

@@ -8,10 +8,10 @@ import style from './AuthorInfo.module.scss';
 
 interface TAuthorInfoProps {
   author: author;
-  date: any;
+  date: string;
 }
 
-export default function AuthorInfo(props: any) {
+export default function AuthorInfo(props: TAuthorInfoProps) {
   const AuthorInfo: author = props.author;
   const AuthorName = AuthorInfo.username;
   const date = props.date;
