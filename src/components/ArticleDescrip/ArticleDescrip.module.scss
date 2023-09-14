@@ -5,4 +5,8 @@
   display: flex;
   word-wrap: break-word;
   width: 700px;
+  max-width: 700px;
+  word-break: break-all;
+  overflow: hidden;
+  max-height: 45px;
 }

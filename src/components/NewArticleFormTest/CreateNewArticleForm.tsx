@@ -98,7 +98,7 @@ export default function CreateNewArticleForm(props: TNewArticleFormProps) {
       try {
         await fetchToServer(data).unwrap();
         setSuccessed(true);
-        setTimeout(() => navigate(-1), 2000);
+        setTimeout(() => navigate('/'), 2000);
       } catch (error) {
         console.log(error);
       }
